@@ -6,8 +6,8 @@ module.exports = class TriggeredlCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'triggered',
-            group: 'reactions',
             memberName: 'triggered',
+            group: 'reactions',
             description: 'REEEEEEEEEEEEEE',
             examples: ['triggered']
         });
@@ -20,6 +20,6 @@ module.exports = class TriggeredlCommand extends Command {
         const embed = new Discord.RichEmbed()
             .setImage(assets["triggered"][randNumber])
             .setColor(0xFFFFFF)
-        message.embed(embed);
+        return message.embed(embed);
     }
-;}
+};

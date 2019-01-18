@@ -6,8 +6,8 @@ module.exports = class FistbumpCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'fistbump',
-            group: 'reactions',
             memberName: 'fistbump',
+            group: 'reactions',
             description: 'Brofist!',
             examples: ['fistbump']
         });
@@ -17,6 +17,6 @@ module.exports = class FistbumpCommand extends Command {
         const embed = new Discord.RichEmbed()
             .setImage(assets["fistbump"])
             .setColor(0x00FFFF)
-        message.embed(embed);
+        return message.embed(embed);
     }
-;}
+};

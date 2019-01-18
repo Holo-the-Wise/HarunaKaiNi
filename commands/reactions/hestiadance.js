@@ -6,10 +6,11 @@ module.exports = class HestiaDanceCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'hestiadance',
-            group: 'reactions',
             memberName: 'hestiadance',
+            group: 'reactions',
             description: 'You\'ve got 32 of \'em, remember to keep them clean!',
-            examples: ['hestiadance']
+            examples: ['hestiadance'],
+            aliases: ['dance'],
         });
     }
 
@@ -17,6 +18,6 @@ module.exports = class HestiaDanceCommand extends Command {
         const embed = new Discord.RichEmbed()
             .setImage(assets["hestiadance"])
             .setColor(0x00FFFF)
-        message.embed(embed);
+        return message.embed(embed);
     }
-;}
+};

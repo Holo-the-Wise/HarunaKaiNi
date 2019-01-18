@@ -6,9 +6,10 @@ module.exports = class CarnivalCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'carnival',
-            group: 'reactions',
             memberName: 'carnival',
+            group: 'reactions',
             description: 'Carnival Dayo!!!',
+            aliases: ['maya'],
             examples: ['carnival']
         });
     }
@@ -17,6 +18,6 @@ module.exports = class CarnivalCommand extends Command {
         const embed = new Discord.RichEmbed()
             .setImage(assets["carnival"])
             .setColor(15750656)
-        message.embed(embed);
+        return message.embed(embed);
     }
-;}
+};

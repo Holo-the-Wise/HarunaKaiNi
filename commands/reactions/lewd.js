@@ -6,8 +6,8 @@ module.exports = class LewdCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'lewd',
-            group: 'reactions',
             memberName: 'lewd',
+            group: 'reactions',
             description: 'When things are too lewd to handle',
             examples: ['lewd']
         });
@@ -20,6 +20,6 @@ module.exports = class LewdCommand extends Command {
         const embed = new Discord.RichEmbed()
             .setImage(assets["lewd"][randNumber])
             .setColor(0xFFFFFF)
-        message.embed(embed);
+        return message.embed(embed);
     }
-;}
+};

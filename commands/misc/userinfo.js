@@ -1,7 +1,5 @@
 const { Command } = require('discord.js-commando');
-// const { escapeMarkdown } = require('discord.js');
 const Discord = require('discord.js');
-// const moment = require('moment');
 const moment = require('moment-timezone');
 require('moment-duration-format');
 
@@ -9,13 +7,13 @@ module.exports = class UserInfoCommand extends Command {
     constructor(client){
         super(client, {
             name: 'userinfo',
-            group: 'misc',
             memberName: 'userinfo',
+            group: 'misc',
             description: 'Display info about user',
-            examples: ['userinfo'],
             aliases: [
                 'memberinfo'
             ],
+            examples: ['userinfo'],
             args: [
                 {
                     key: 'user',
@@ -24,9 +22,19 @@ module.exports = class UserInfoCommand extends Command {
                     default: ''
                 }
             ],
-            guildOnly: true
+            guildOnly: true,
         });
     }
+
+    hasPermission(message) {
+        if(message.channel.type == "text"){
+        let PermissionLevel = 0;
+        let msglevel = message.client.elevation(message);
+        return msglevel >= PermissionLevel;
+        }
+        else {return true;}
+    }
+    ///remove this one from this command once an admin one has been done
 
     async run (message, args){
         let user;
@@ -98,10 +106,9 @@ module.exports = class UserInfoCommand extends Command {
                 **Time:** ${moment(args.user.joinedAt).format('LTS')} ${moment.tz(moment.tz.guess()).format('z')}`,
                 true)
             .addField(`Roles - (${args.user.roles.size > 0 ? args.user.roles.size.toLocaleString() - 1 : 0})`,`
-                userRoles`,
+                ${userRoles}`,
                 false)
             .setColor(userColor)
-        message.embed(embed);
-
+        return message.embed(embed);
     }
-}
+};

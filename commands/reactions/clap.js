@@ -6,8 +6,8 @@ module.exports = class ClapCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'clap',
-            group: 'reactions',
             memberName: 'clap',
+            group: 'reactions',
             description: 'Congratulations!',
             examples: ['clap']
         });
@@ -17,6 +17,6 @@ module.exports = class ClapCommand extends Command {
         const embed = new Discord.RichEmbed()
             .setImage(assets["puckclap"])
             .setColor(0xFFFFFF)
-        message.embed(embed);
+        return message.embed(embed);
     }
-;}
+};

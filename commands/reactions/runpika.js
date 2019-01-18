@@ -6,10 +6,11 @@ module.exports = class RunpikaCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'runpika',
-            group: 'reactions',
             memberName: 'runpika',
+            group: 'reactions',
             description: 'Whoa Whoa! Whoa Whoa!',
-            examples: ['runpika']
+            examples: ['runpika'],
+            aliases: ['runepika'],
         });
     }
 
@@ -17,6 +18,6 @@ module.exports = class RunpikaCommand extends Command {
         const embed = new Discord.RichEmbed()
             .setImage(assets["runpika"])
             .setColor(0x00FFFF)
-        message.embed(embed);
+        return message.embed(embed);
     }
-;}
+};
