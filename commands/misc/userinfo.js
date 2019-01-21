@@ -34,7 +34,6 @@ module.exports = class UserInfoCommand extends Command {
         }
         else {return true;}
     }
-    ///remove this one from this command once an admin one has been done
 
     async run (message, args){
         let user;
@@ -69,7 +68,7 @@ module.exports = class UserInfoCommand extends Command {
         
         
         let userRoles;
-        if (args.user.roles.size > 0) {
+        if (args.user.roles.size > 1) {
             let rolesArray = args.user.roles.array();
             let rolesString = '';
             for (let i = 0; i < rolesArray.length; i++){
@@ -90,8 +89,8 @@ module.exports = class UserInfoCommand extends Command {
             .setFooter(`${message.author.tag}`, `${message.author.displayAvatarURL}`)
             .setTimestamp(new Date())
             .setTitle(`Information for ${(user.tag)}${user.bot === true ? ' **[BOT]**' : ''}`)
-            .setDescription(userStatus)
             .setThumbnail(`${user.displayAvatarURL}`)
+            .setDescription(userStatus)
             .addField('Identity', `
                 **Tag:** ${(user.tag)}
                 **ID:** ${user.id}

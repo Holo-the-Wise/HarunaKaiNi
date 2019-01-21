@@ -3,6 +3,7 @@ const path = require('path');
 const discord = require('discord.js');
 const client = new Commando.Client({commandPrefix: '-', owner: '118348886262677506', unknownCommandResponse: false, disableEveryone: true});
 const token = require("./config.json").token;
+const fs = require('fs');
 // const token  = 'NTMzOTA4ODE2MzkyMjI0NzY5.DyDBMw.sYVkMluq5TJaYnLm9x_pELWpgFg';
 
 client.muted = [];//muted users are here
@@ -19,15 +20,12 @@ client.registry
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
 
-client.on('message', message => {
-    if (!message.content.startsWith(client.commandPrefix)) {
-        return;
-    }
-})
+// client.on('message', message => {
+//     if (!message.content.startsWith(client.commandPrefix)) {
+//         return;
+//     }
+// })
 
-client.on('ready', function() {
-    console.log(`I am loaded and running.`)
-})
 
 client.elevation = message => {
     /* This function should resolve to an ELEVATION level which
@@ -44,5 +42,27 @@ client.elevation = message => {
     if (message.author.id == client.owner) permlvl = 4;
     return permlvl;
 };
+
+function readEvents() {
+    fs.readdir('./events/', (err, files) => {
+        if (err) return console.error(err);
+        let eventNumber = 0;
+        console.log('\nEvents loading...');
+        files.forEach(file => {
+            try {
+                const event = require(`./events/${file}`);
+                let eventName = file.split(".")[0];
+                ++eventNumber;
+                client.on(eventName, event.bind(null, client));
+                delete require.cache[require.resolve(`./events/${file}`)];
+            } catch (err) {
+                console.log(`Could not load event: ${file}\n   ${err}`);
+            }
+        });
+        console.log(`${eventNumber} events loaded!`);
+    });
+}
+
+readEvents();
 
 client.login(token);
