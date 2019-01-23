@@ -28,7 +28,7 @@ module.exports = class StyleSheetCommand extends Command {
                 }
             ],
             guildOnly: true,
-            ownerOnly: false // Whether the command can only be used by an owner.
+            ownerOnly: false
         })
     }
 

@@ -4,6 +4,7 @@ const discord = require('discord.js');
 const client = new Commando.Client({commandPrefix: '-', owner: '118348886262677506', unknownCommandResponse: false, disableEveryone: true});
 const token = require("./config.json").token;
 const fs = require('fs');
+const ownerId = require("./config.json").OwnerId;
 // const token  = 'NTMzOTA4ODE2MzkyMjI0NzY5.DyDBMw.sYVkMluq5TJaYnLm9x_pELWpgFg';
 
 client.muted = [];//muted users are here
@@ -39,7 +40,7 @@ client.elevation = message => {
     if (admin_role && message.member.roles.has(admin_role.id)) permlvl = 3;
     let admin2_role = message.guild.roles.find(x => x.name === "Admirals of the Fleet");
     if (admin2_role && message.member.roles.has(admin2_role.id)) permlvl = 3;
-    if (message.author.id == client.owner) permlvl = 4;
+    if (message.author.id == ownerId) permlvl = 4;
     return permlvl;
 };
 
