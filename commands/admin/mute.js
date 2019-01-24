@@ -4,7 +4,7 @@ const Discord = require("discord.js");
 const silencedRole = require('../../config.json').silencedrole;
 const assets = require('../../assets/imageassets.json');
 
-module.exports = class StyleSheetCommand extends Command {
+module.exports = class MuteCommand extends Command {
     constructor (client) {
         super(client, {
             name: 'mute',
