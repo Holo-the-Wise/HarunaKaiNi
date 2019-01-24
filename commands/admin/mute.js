@@ -28,15 +28,15 @@ module.exports = class StyleSheetCommand extends Command {
                 }
             ],
             guildOnly: true,
-            ownerOnly: true
+            ownerOnly: false
         })
     }
 
-    // hasPermission(message) {
-    //     let PermissionLevel = 2;
-    //     let msglevel = message.client.elevation(message);
-    //     return msglevel >= PermissionLevel;
-    // }
+    hasPermission(message) {
+        let PermissionLevel = 2;
+        let msglevel = message.client.elevation(message);
+        return msglevel >= PermissionLevel;
+    }
 
     async run (message, {member, duration}) {
         if(member.roles.find(x => x.name === silencedRole)){
