@@ -15,7 +15,7 @@ module.exports = class PurgeCommand extends Command {
             args: [
                 {
                     key: 'number',
-                    prompt: 'How long do you want to mute for?',
+                    prompt: 'How many messages do you want to delete?',
                     type: 'integer',
                     validate: number => {
                         if(number > 0){ return true;} else{
@@ -25,7 +25,7 @@ module.exports = class PurgeCommand extends Command {
                 },
                 {
                     key: 'member',
-                    prompt: 'Which user would you like to mute?',
+                    prompt: `Which user's messages do you want to delete?`,
                     type: 'member',
                     default: ''
                 }
