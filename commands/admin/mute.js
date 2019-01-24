@@ -51,7 +51,8 @@ module.exports = class StyleSheetCommand extends Command {
 
         member.roles.array().forEach(function(r) {
             member.removeRole(r)
-        }).then(member.addRole(silenced)).catch(console.error);
+        })
+        member.addRole(silenced).catch(console.error);
 
         const embed = new Discord.RichEmbed()
             .setAuthor(`${member.displayName} has been muted for ${ms(ms(time), { long: true })}`, `${message.client.user.displayAvatarURL}`)
