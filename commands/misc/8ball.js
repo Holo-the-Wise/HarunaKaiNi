@@ -45,7 +45,7 @@ module.exports = class EightballCommand extends Command {
             "19": "Very doubtful"
         }
         
-        hash = farmhash.hash32(question);
+        let hash = farmhash.hash32(question);
         let hash100 = hash % 100;
         let hashFinal = Math.round(hash100 / 5);
         message.say(answer[hashFinal.toString()]);
