@@ -16,11 +16,6 @@ module.exports = async (client, message) => {
     // const args = message.content.trim().split(/ +/g);
     // const config = client.config;
     // const disabledUsers = config.disabledUsers;
-    // const serverID = config.ids.server;
-    // const logsID = config.ids.logs;
-    // const dmsID = config.ids.dmLogs;
-    // const logs = client.guilds.get(serverID).channels.get(logsID);
-    // const dms = client.guilds.get(serverID).channels.get(dmsID);
 
     // 
 

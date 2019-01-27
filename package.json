@@ -19,6 +19,7 @@
   "dependencies": {
     "discord.js": "^11.4.2",
     "discord.js-commando": "^0.10.0",
+    "farmhash": "^2.1.0",
     "moment": "^2.23.0",
     "moment-duration-format": "^2.2.2",
     "moment-timezone": "^0.5.23",
