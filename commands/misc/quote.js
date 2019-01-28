@@ -26,8 +26,8 @@ module.exports = class QuoteCommand extends Command {
 
 
     async run (message, {member}){
-        if (member.user === '') {
-            let size = quotes.length;
+        if (!member) {
+            let size = allquotes.length;
             let quoteNumber = Math.floor((Math.random() * size));
             message.channel.send(`${allquotes[quoteNumber]}`);
         } else {
