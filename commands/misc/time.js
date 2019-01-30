@@ -4,17 +4,17 @@ let moment = require('moment-timezone');
 module.exports = class TimeCommand extends Command {
     constructor (client) {
         super(client, {
-            name: 'time', // Name of this command.
-            memberName: 'time', // Name of this command.
-            group: 'misc', // The group the command belongs to, assigned upon registration.
-            description: 'A short description goes here.', // Short description of the command.
+            name: 'time', 
+            memberName: 'time',
+            group: 'misc', 
+            description: 'Displays current time or specified time (in SGT) across multiple time zones', // Short description of the command.
             details: ` // Short description of the command
             A long description for
             your command goes here.
             `,
-            examples: ['time'],
-            format: '[time]', // Usage format string of the command.
-            args: [ // Go here for argument help: http://discord.js.org/#/docs/commando/master/class/Argument
+            examples: ['time', 'time 8pm', 'time 2045', 'time 20.45', 'time 8:45pm'],
+            format: 'time [specific time] (if specific time is empty, will use current time)',
+            args: [
                 {
                     key: 'time',
                     label: 'time',
