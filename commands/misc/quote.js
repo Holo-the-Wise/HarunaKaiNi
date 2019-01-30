@@ -33,12 +33,15 @@ module.exports = class QuoteCommand extends Command {
         } else {
             let userToQuote = member.user;
             let userId = userToQuote.id;
+            if(member.toLowercase() == "estro" || member.toLowercase() == "estrogius"){
+                userId == 340036582281052173;
+            }
             if(quotes[userId]){
                 let size = quotes[userId].length
                 let quoteNumber = Math.floor((Math.random() * size));
                 message.say(`${quotes[userId][quoteNumber]}`);
             } else {
-                return message.say(`No quotes found for ${userToQuote.toString()}`);
+                return message.say(`No quotes found for ${userToQuote.username}#${userToQuote.discriminator}`);
             }
         }
     }

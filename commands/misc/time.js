@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 let moment = require('moment-timezone');
 
-module.exports = class TimetCommand extends Command {
+module.exports = class TimeCommand extends Command {
     constructor (client) {
         super(client, {
             name: 'time', // Name of this command.
