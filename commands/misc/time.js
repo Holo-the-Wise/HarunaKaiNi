@@ -8,12 +8,9 @@ module.exports = class TimeCommand extends Command {
             memberName: 'time',
             group: 'misc', 
             description: 'Displays current time or specified time (in SGT) across multiple time zones', // Short description of the command.
-            details: ` // Short description of the command
-            A long description for
-            your command goes here.
-            `,
+            details: `specific time may be left blank, in which cause the current time in SGT will be used`,
             examples: ['time', 'time 8pm', 'time 2045', 'time 20.45', 'time 8:45pm'],
-            format: 'time [specific time] (if specific time is empty, will use current time)',
+            format: '[specific time]',
             args: [
                 {
                     key: 'time',
@@ -23,9 +20,9 @@ module.exports = class TimeCommand extends Command {
                     default: ''
                 }
             ],
-            guarded: false, // Whether the command is protected from being disabled.
-            guildOnly: false, // Whether the command can only be run in a guild channel.
-            ownerOnly: false // Whether the command can only be used by an owner.
+            guarded: false,
+            guildOnly: false,
+            ownerOnly: false
         })
     }
 
