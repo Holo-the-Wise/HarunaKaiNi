@@ -33,9 +33,6 @@ module.exports = class QuoteCommand extends Command {
         } else {
             let userToQuote = member.user;
             let userId = userToQuote.id;
-            if(member.toString().toLowercase() == "estro" || member.toString().toLowercase() == "estrogius"){
-                userId == 340036582281052173;
-            }
             if(quotes[userId]){
                 let size = quotes[userId].length
                 let quoteNumber = Math.floor((Math.random() * size));
