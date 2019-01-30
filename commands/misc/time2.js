@@ -41,11 +41,11 @@ module.exports = class TimetwoCommand extends Command {
         let timeformat;
         if(time && !zone){
             timeformat = moment(time, ["hmm", "HH:mm", "hmma", "HH:mma"]);
-            message.say(`SGT ${timeformat}, in other time zones:\n\n`);
+            message.say(`SGT ${timeformat.format('HH:mm')}, in other time zones:\n\n`);
         } else if (time && zone){
             return message.say("time + zone");
         } else {
-            timeformat = moment(time, ["hmm", "HH:mm", "hmma", "HH:mma"]);
+            timeformat = moment();
             message.say(`It is currently:`);
         }
 
