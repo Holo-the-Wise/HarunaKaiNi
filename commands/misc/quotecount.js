@@ -30,6 +30,9 @@ module.exports = class QuoteCountCommand extends Command {
 
 
     async run (message, {member}){
+        if(!member){
+            return message.say("No such user found");
+        }
         let userToQuote = member.user;
         let userId = userToQuote.id;
         if(quotes[userId]){
