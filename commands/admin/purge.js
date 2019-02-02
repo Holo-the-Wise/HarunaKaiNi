@@ -8,10 +8,10 @@ module.exports = class PurgeCommand extends Command {
             name: 'purge',
             memberName: 'purge',
             group: 'admin',
-            description: 'Deletes the last X messages from the channel',
+            description: 'Deletes the last X messages from the channel, can also specify a user if desired',
             aliases: ['clean'],
             examples: ['purge 5', 'purge 5 @holo'],
-            format: 'mute [no. of messages] [user (optional)]',
+            format: 'purge [amount] [user]',
             args: [
                 {
                     key: 'number',

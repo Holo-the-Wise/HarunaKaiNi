@@ -8,7 +8,7 @@ module.exports = class AvatarCommand extends Command {
             memberName: 'avatar',
             group: 'misc',
             description: 'Shows the avatar of the specified user or yourself!',
-            aliases: ['profilepic','dp'],
+            aliases: ['profilepic','dp', 'pfp'],
             examples: ['avatar', 'avatar holothewise', 'avatar @holothewise'],
             format: 'avatar [user] (mention or plaintext)',
             args: [

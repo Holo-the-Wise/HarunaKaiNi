@@ -7,7 +7,7 @@ module.exports = class UnmuteCommand extends Command {
             name: 'unmute',
             memberName: 'unmute',
             group: 'admin',
-            description: 'Unmutes the mentionned user for a given length of time',
+            description: 'Unmutes the mentionned user',
             aliases: ['release'],
             examples: ['unmute @holo'],
             format: 'unmute [user]',

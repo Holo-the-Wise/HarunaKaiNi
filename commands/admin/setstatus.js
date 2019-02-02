@@ -10,7 +10,7 @@ module.exports = class SetStatusCommand extends Command {
             details: `arg types: 'playing', 'game', 'listen', 'listening', 'watch', 'watching', 'streaming', 'stream'`,
             aliases: ['status', 'presence'],
             examples: ['setstatus playing WoWs', 'setstatus listening mimorin','setstatus watching fubuki', 'setstatus streaming WoWs'],
-            format: '[setstatus [[type] [game/music/stream]]',
+            format: '[setstatus [type] [game/music/stream]',
             args: [
                 {
                     key: 'statustype',

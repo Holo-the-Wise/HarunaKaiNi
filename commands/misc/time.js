@@ -7,7 +7,7 @@ module.exports = class TimeCommand extends Command {
             name: 'time', 
             memberName: 'time',
             group: 'misc', 
-            description: 'Displays current time or specified time (in SGT) across multiple time zones', // Short description of the command.
+            description: 'Displays current time or specified time (in SGT) across multiple time zones',
             details: `specific time may be left blank, in which cause the current time in SGT will be used`,
             examples: ['time', 'time 8pm', 'time 2045', 'time 20.45', 'time 8:45pm'],
             format: '[specific time]',
