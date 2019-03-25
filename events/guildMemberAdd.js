@@ -3,9 +3,11 @@ const logChannelID = require("../config.json").logChannel;
 let welcome = require('../assets/welcome.json');
 const silencedRole = require('../config.json').silencedrole;
 const Discord = require("discord.js");
+const Canvas = require('canvas');
+const snekfetch = require('snekfetch');
 
 module.exports = async (client, member) => {
-    
+
     let guild = member.guild;
     let generalChannel = guild.channels.find(u => u.id == generalChannelID);
     let logChannel = guild.channels.find(u => u.id == logChannelID);
@@ -17,24 +19,47 @@ module.exports = async (client, member) => {
         logChannel.send(`${member.user} has rejoined the server, still muted!`);
         member.addRole(silenced);
     } else {
-    
+
         let size = welcome.length;
         let randNumber = Math.floor((Math.random() * size));
         let welcomeMsg = welcome[randNumber];
-        let finalWelcome = welcomeMsg.replace("xxx", member.user.username);
-        let color = Math.floor(Math.random() * 16777214) + 1;
-    
-        generalChannel.send(`Hi ${member}!, welcome to FISH and CHIPS!`);
-        logChannel.send(`${member.user} has joined the server, welcome!`);
-        const joinEmbed = new Discord.RichEmbed()
-            .setAuthor(member.user.username, member.user.displayAvatarURL)
-            .setColor(color)
-            .setFooter(`${client.user.tag}`, `${client.user.displayAvatarURL}`)
-            .setTimestamp()
-            // .setDescription(finalWelcome)
-            .addBlankField()
-            .addField(finalWelcome,'\u200b', true)
-            .setThumbnail(`${member.user.displayAvatarURL}`);
-        generalChannel.send(joinEmbed);
-    } 
+        let finalWelcome = welcomeMsg.replace("xxx", member.user);
+
+
+        const canvas = Canvas.createCanvas(850, 500);
+        const ctx = canvas.getContext('2d');
+
+        // Since the image takes time to load, you should await it
+        const background = await Canvas.loadImage('./assets/welcomeimage/background4.jpg');
+        // This uses the canvas dimensions to stretch the image onto the entire canvas
+        ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+
+        ctx.font = 'bold 60px sans-serif';
+        ctx.fillStyle = '#000000';
+        ctx.fillText('Welcome to', 380, 80);
+        ctx.fillText('FISH n CHIPS', 365, 150);
+
+        nameSize = 120;
+        do {
+            ctx.font = `bold ${nameSize -= 10}px sans-serif`;
+        } while (ctx.measureText(member.user.username).width > canvas.width - 400);
+        
+        ctx.textBaseline = "middle"; 
+        ctx.fillText(member.user.username, 385, 410);
+        
+        ctx.beginPath();
+        ctx.arc(228, 405, 93, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.clip();
+
+        const {
+            body: buffer
+        } = await snekfetch.get(member.user.displayAvatarURL);
+        const avatar = await Canvas.loadImage(buffer);
+        
+        ctx.drawImage(avatar, 135, 313, 185, 185);
+        const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-image.png');
+        generalChannel.send(finalWelcome, attachment);
+    }
 };

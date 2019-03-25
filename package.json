@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/HasithaAbeysekera/HarunaKaiNi#readme",
   "dependencies": {
+    "canvas": "^2.4.1",
     "discord.js": "^11.4.2",
     "discord.js-commando": "^0.10.0",
     "farmhash": "^2.1.0",
