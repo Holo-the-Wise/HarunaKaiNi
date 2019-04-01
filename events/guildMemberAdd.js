@@ -61,5 +61,6 @@ module.exports = async (client, member) => {
         ctx.drawImage(avatar, 135, 313, 185, 185);
         const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-image.png');
         generalChannel.send(finalWelcome, attachment);
+        logChannel.send(`${member.user} has joined the server, welcome!`);
     }
 };
