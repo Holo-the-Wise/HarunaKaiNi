@@ -8,7 +8,6 @@ const ownerId = require("./config.json").OwnerId;
 // const token  = 'NTMzOTA4ODE2MzkyMjI0NzY5.DyDBMw.sYVkMluq5TJaYnLm9x_pELWpgFg';
 
 client.muted = [];//muted users are here
-
 client.registry
     .registerDefaultTypes()
     .registerGroups([
