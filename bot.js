@@ -1,13 +1,24 @@
 const Commando = require('discord.js-commando');
 const path = require('path');
 const discord = require('discord.js');
-const client = new Commando.Client({commandPrefix: '-', owner: '118348886262677506', unknownCommandResponse: false, disableEveryone: true});
+const client = new Commando.Client({
+    commandPrefix: '-',
+    owner: '118348886262677506',
+    unknownCommandResponse: false,
+    disableEveryone: true
+});
 const token = require("./config.json").token;
 const fs = require('fs');
 const ownerId = require("./config.json").OwnerId;
-// const token  = 'NTMzOTA4ODE2MzkyMjI0NzY5.DyDBMw.sYVkMluq5TJaYnLm9x_pELWpgFg';
+const sqlite3 = require('sqlite3').verbose();
+let emotedb = new sqlite3.Database('./db/emotedb.db', (err) => {
+    if (err) {
+        return console.error(err.message);
+    }
+    console.log('Connected to the emotedb SQlite database.');
+});
 
-client.muted = [];//muted users are here
+client.muted = []; //muted users are here
 client.registry
     .registerDefaultTypes()
     .registerGroups([
