@@ -4,7 +4,7 @@ const DisplayBingo = require('./DisplayBingo.js');
 
 module.exports = async (message, member, client) => {
 
-    let user = member || message.author;
+    let user = member;
 
     if (!client.contestData.has(user.id)) {
         return message.channel.send("Error: User isn't in the contest");
