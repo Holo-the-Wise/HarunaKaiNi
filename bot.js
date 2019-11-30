@@ -10,13 +10,10 @@ const client = new Commando.Client({
 const token = require("./config.json").token;
 const fs = require('fs');
 const ownerId = require("./config.json").OwnerId;
-const sqlite3 = require('sqlite3').verbose();
-let emotedb = new sqlite3.Database('./db/emotedb.db', (err) => {
-    if (err) {
-        return console.error(err.message);
-    }
-    console.log('Connected to the emotedb SQlite database.');
-});
+
+const Enmap = require('enmap');
+client.contestData = new Enmap({name: 'contest'});
+
 
 client.muted = []; //muted users are here
 client.registry
@@ -24,7 +21,8 @@ client.registry
     .registerGroups([
         ['reactions', 'ImageReactions'],
         ['admin', 'Admin'],
-        ['misc', 'Misc']
+        ['misc', 'Misc'],
+        ['contest', 'Contest']
     ])
     .registerDefaultGroups()
     .registerDefaultCommands()

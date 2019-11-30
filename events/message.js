@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const collectEmojis = require('../util/collectEmojis');
 
 module.exports = async (client, message) => {
 
