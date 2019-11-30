@@ -74,5 +74,5 @@ module.exports = async (points, user, message) => {
     
     const attachment = new Discord.Attachment(canvas.toBuffer(), 'bingo.png');
     
-    return message.channel.send(`__**Bingo Card for ${user.username}: **__\n\n Missions Completed: ${points[0]} \n Lines Completed: ${lineCount}`, attachment);
+    return message.channel.send(`__**Bingo Card for ${user.displayName}: **__\n\n Missions Completed: ${points[0]} \n Lines Completed: ${lineCount}`, attachment);
 };
