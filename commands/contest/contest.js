@@ -3,8 +3,6 @@ const Discord = require("discord.js");
 const Cjoin = require('../../util/Cjoin.js');
 const Cdone = require('../../util/Cdone.js');
 const Ccard = require('../../util/Ccard.js');
-const Cleaders = require('../../util/Cleaders.js');
-// const Cmissions = require('../../util/Cteamtotal.js');
 const Cundo = require('../../util/Cundo.js');
 
 
