@@ -24,7 +24,7 @@ module.exports = class ContestCommand extends Command {
                     key: 'member',
                     prompt: 'Which user?',
                     type: 'member',
-                    default: ''
+                    default: '???'
 				},
 				{
                     key: 'mission',
@@ -36,16 +36,17 @@ module.exports = class ContestCommand extends Command {
 		});
 	}
 
-	async run(message, args, client) {
-		switch (args.option){
+	async run(message, {option, member, mission}, client) {
+        
+		switch (option){
             case 'join':
                 return Cjoin(message, message.client);
             case 'done':
-                return Cdone(message, args.member, args.mission, message.client);
+                return Cdone(message, member, mission, message.client);
             case 'undo':
-                return Cundo(message, args.member, args.mission, message.client);
+                return Cundo(message, member, mission, message.client);
             case 'card':
-                return Ccard(message, args.member, message.client);
+                return Ccard(message, member, message.client);
         }
 	}
 };
