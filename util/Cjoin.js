@@ -16,7 +16,7 @@ module.exports = async (message, client) => {
             }
             client.contestData.set(message.author.id, points);
             message.channel.send(`${message.author}, you've been added to the contest. Your Bingo Card is below: `);
-            DisplayBingo(points, message.author, message);
+            DisplayBingo(points, message.member, message);
 
             let Xmasrole = message.guild.roles.find(u => u.name == 'Xmas');
             message.member.addRole(Xmasrole);     
