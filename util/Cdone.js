@@ -19,7 +19,7 @@ module.exports = async (message, member, mission, client) => {
 
             let curr = client.contestData.get(user.id, 0);
             client.contestData.set(user.id, curr + 1, 0);
-            return message.channel.send(`${user.displayName} completed mission #${mission}`);
+            return message.channel.send(`${user.displayName} completed mission #${mission}. Total: ${client.contestData.get(user.id, 0)}`);
         } else {
             return message.channel.send("Mission already completed");
         }   
