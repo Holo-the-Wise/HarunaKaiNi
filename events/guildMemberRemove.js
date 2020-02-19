@@ -1,8 +1,8 @@
-const logChannelID = require("../config.json").logChannel;
+const capChannelID = require("../config.json").capChannel;
 
 module.exports = async (client, member) => {
     let guild = member.guild;
-    logChannel = guild.channels.find(u => u.id == logChannelID);
+    capChannel = guild.channels.find(u => u.id == capChannelID);
     console.log(`${member.user.username}  has left ${guild}`);
-    logChannel.send(`${member.user} (${member.user.username}) has left the server :cry:`);
+    capChannel.send(`${member.user} (${member.user.username}) has left the server :cry:`);
 };

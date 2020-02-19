@@ -1,5 +1,5 @@
 const generalChannelID = require("../config.json").generalChannel;
-const logChannelID = require("../config.json").logChannel;
+const capChannelID = require("../config.json").capChannel;
 let welcome = require('../assets/welcome.json');
 const silencedRole = require('../config.json').silencedrole;
 const Discord = require("discord.js");
@@ -10,13 +10,13 @@ module.exports = async (client, member) => {
 
     let guild = member.guild;
     let generalChannel = guild.channels.find(u => u.id == generalChannelID);
-    let logChannel = guild.channels.find(u => u.id == logChannelID);
+    let capChannel = guild.channels.find(u => u.id == capChannelID);
     console.log(`${member.user.username} has joined ${guild}`);
 
     if (client.muted[member.id]) {
         let silenced = guild.roles.find(u => u.name == silencedRole);
         generalChannel.send(`Welcome back ${member.user}, you're still muted`);
-        logChannel.send(`${member.user} has rejoined the server, still muted!`);
+        capChannel.send(`${member.user} has rejoined the server, still muted!`);
         member.addRole(silenced);
     } else {
 
@@ -61,6 +61,6 @@ module.exports = async (client, member) => {
         ctx.drawImage(avatar, 135, 313, 185, 185);
         const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-image.png');
         generalChannel.send(finalWelcome, attachment);
-        logChannel.send(`${member.user} has joined the server, welcome!`);
+        capChannel.send(`${member.user} has joined the server, welcome!`);
     }
 };

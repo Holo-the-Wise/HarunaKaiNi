@@ -17,16 +17,16 @@
   },
   "homepage": "https://github.com/HasithaAbeysekera/HarunaKaiNi#readme",
   "dependencies": {
-    "canvas": "^2.4.1",
+    "canvas": "^2.6.1",
     "discord.js": "^11.4.2",
     "discord.js-commando": "^0.10.0",
     "farmhash": "^2.1.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "moment": "^2.23.0",
     "moment-duration-format": "^2.2.2",
     "moment-timezone": "^0.5.23",
     "node-superfetch": "^0.1.9",
-    "sqlite3": "^4.0.8",
+    "sqlite3": "^4.1.1",
     "superfetch": "^1.1.1"
   }
 }

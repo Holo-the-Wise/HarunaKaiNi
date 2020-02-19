@@ -11,8 +11,10 @@ const token = require("./config.json").token;
 const fs = require('fs');
 const ownerId = require("./config.json").OwnerId;
 
-const Enmap = require('enmap');
-client.contestData = new Enmap({name: 'contest'});
+
+/* Trackers - used to track various bot states etc */
+client.emojinotifs = true;
+
 
 
 client.muted = []; //muted users are here
@@ -21,19 +23,12 @@ client.registry
     .registerGroups([
         ['reactions', 'ImageReactions'],
         ['admin', 'Admin'],
-        ['misc', 'Misc'],
-        ['contest', 'Contest']
+        ['misc', 'Misc']
     ])
     .registerDefaultGroups()
     .registerDefaultCommands()
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
-
-// client.on('message', message => {
-//     if (!message.content.startsWith(client.commandPrefix)) {
-//         return;
-//     }
-// })
 
 
 client.elevation = message => {
