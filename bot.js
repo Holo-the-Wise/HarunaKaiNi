@@ -14,6 +14,7 @@ const ownerId = require("./config.json").OwnerId;
 
 /* Trackers - used to track various bot states etc */
 client.emojinotifs = true;
+// client.owneruser = client.owner;
 
 
 

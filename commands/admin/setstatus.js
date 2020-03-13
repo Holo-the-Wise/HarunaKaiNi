@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando')
+const ownerid = require('../../config.json').OwnerId;
 
 module.exports = class SetStatusCommand extends Command {
     constructor (client) {
@@ -30,6 +31,10 @@ module.exports = class SetStatusCommand extends Command {
 
 
     async run (message, {statustype, statustext}) {
+
+        let owner = message.guild.members.get(ownerid);
+
+
         if (statustype === "playing" || statustype === "game"){
             message.client.user.setPresence({
                 game: {
@@ -60,5 +65,7 @@ module.exports = class SetStatusCommand extends Command {
         } else {
             return message.say("Unrecognised status type. Please check help for details.");
         }
+
+        owner.send(`${statustype} status changed to ${statustext} by ${message.author.username}`);
     }
 };

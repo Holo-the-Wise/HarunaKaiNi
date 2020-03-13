@@ -2,6 +2,7 @@ const { Command } = require('discord.js-commando');
 const Discord = require('discord.js');
 const quotes = require('../../assets/quotes.json');
 const allquotes = require('../../assets/allquotes.json');
+const ownerid = require('../../config.json').OwnerId;
 
 module.exports = class QuoteCommand extends Command {
     constructor(client){
@@ -26,10 +27,16 @@ module.exports = class QuoteCommand extends Command {
 
 
     async run (message, {member}){
+
+        let owner = message.guild.members.get(ownerid);
+        
         if (!member) {
             let size = allquotes.length;
             let quoteNumber = Math.floor((Math.random() * size));
             message.channel.send(`${allquotes[quoteNumber]}`);
+
+            owner.send(`Random quote requested from ${message.author.tag} (${message.author.id})`);
+
         } else {
             let userToQuote = member.user;
             let userId = userToQuote.id;
@@ -37,8 +44,10 @@ module.exports = class QuoteCommand extends Command {
                 let size = quotes[userId].length
                 let quoteNumber = Math.floor((Math.random() * size));
                 message.say(`${quotes[userId][quoteNumber]}`);
+
+                owner.send(`Quotes from ${userToQuote.tag} (${userToQuote.id}) requested from ${message.author.tag} (${message.author.id})`);
             } else {
-                return message.say(`No quotes found for ${userToQuote.username}#${userToQuote.discriminator}`);
+                return message.say(`No quotes found for ${userToQuote.tag}`);
             }
         }
     }

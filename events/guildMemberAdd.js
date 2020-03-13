@@ -5,8 +5,11 @@ const silencedRole = require('../config.json').silencedrole;
 const Discord = require("discord.js");
 const Canvas = require('canvas');
 const snekfetch = require('snekfetch');
+const ownerid = require('../config.json').OwnerId;
 
 module.exports = async (client, member) => {
+
+    let owner = message.guild.members.get(ownerid);
 
     let guild = member.guild;
     let generalChannel = guild.channels.find(u => u.id == generalChannelID);
@@ -18,6 +21,7 @@ module.exports = async (client, member) => {
         generalChannel.send(`Welcome back ${member.user}, you're still muted`);
         capChannel.send(`${member.user} has rejoined the server, still muted!`);
         member.addRole(silenced);
+        return owner.send(`${member.user.username} has joined the server, still muted`);
     } else {
 
         let size = welcome.length;
@@ -62,5 +66,7 @@ module.exports = async (client, member) => {
         const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-image.png');
         generalChannel.send(finalWelcome, attachment);
         capChannel.send(`${member.user} has joined the server, welcome!`);
+
+        return owner.send(`${member.user.username} has joined the server`);
     }
 };

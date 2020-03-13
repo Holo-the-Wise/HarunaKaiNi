@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando')
+const ownerid = require('../../config.json').OwnerId;
 
-module.exports = class StyleSheetCommand extends Command {
+module.exports = class EmojiNotifCommand extends Command {
     constructor (client) {
         super(client, {
             name: 'emojinotifs', // Name of this command.
@@ -16,7 +17,7 @@ module.exports = class StyleSheetCommand extends Command {
             format: 'emojinotifs',
             guildOnly: false, // Whether the command can only be run in a guild channel.
             ownerOnly: false // Whether the command can only be used by an owner.
-        })
+        });
     }
 
 
@@ -28,10 +29,12 @@ module.exports = class StyleSheetCommand extends Command {
     
     async run (message, args) {
         
-        console.log(message.client.emojinotifs);
+        let owner = message.guild.members.get(ownerid);
         message.client.emojinotifs = !message.client.emojinotifs;
-        console.log(message.client.emojinotifs);
         
-        return message.channel.send(`Emoji notifications are now ${message.client.emojinotifs ? "enabled" : "disabled"}`);
+        console.log(`Emoji notifications toggled by ${message.author.username}. Current state: ${message.client.emojinotifs ? "enabled" : "disabled"}`);
+        owner.send(`Emoji notifications toggled by ${message.author.username}. Current state: ${message.client.emojinotifs ? "enabled" : "disabled"}`);
+
+        return message.channel.send(`Emoji notifications are now ${message.client.emojinotifs ? "enabled" : "disabled"}`).then(message.delete());
     }
 }

@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
 const Discord = require("discord.js");
+const ownerid = require('../../config.json').OwnerId;
 
 module.exports = class AvatarCommand extends Command {
     constructor (client) {
@@ -24,8 +25,12 @@ module.exports = class AvatarCommand extends Command {
     }
 
     async run (message, args) {
+
+        let owner = message.guild.members.get(ownerid);
+        
         const member = args.member.user || message.author;
         if (!member.avatar) return message.channel.send('This user does not have an avatar!');
+        
         const avatar = member.avatarURL;
         let color = Math.floor(Math.random() * 16777214) + 1;
 
@@ -34,6 +39,8 @@ module.exports = class AvatarCommand extends Command {
             .setColor(color)
             .setDescription(`[Avatar URL](${avatar})`)
             .setImage(avatar)
+
+        owner.send(`${message.author.tag} (${message.author.id}) requested avatar of ${member.tag} (${member.id}): ${avatar}`);    
         return message.channel.send({ embed });
     }
 };

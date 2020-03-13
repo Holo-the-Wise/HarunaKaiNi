@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando')
+const ownerid = require('../../config.json').OwnerId;
 
 module.exports = class StatusClearCommand extends Command {
     constructor (client) {
@@ -15,10 +16,15 @@ module.exports = class StatusClearCommand extends Command {
     }
 
     async run (message, args) {
-            message.client.user.setPresence({
-                game: {
-                  name: ''
-                }})
-            .then().catch(console.error);
+
+        let owner = message.guild.members.get(ownerid);
+        
+        message.client.user.setPresence({
+            game: {
+              name: ''
+            }})
+        .then().catch(console.error);
+        
+        owner.send(`Status cleared by ${message.author.username}`);
     }
 };

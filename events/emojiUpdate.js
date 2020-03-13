@@ -2,8 +2,11 @@ const generalChannelID = require("../config.json").generalChannel;
 const clanChannelID = require("../config.json").clanChannel;
 const capChannelID = require("../config.json").capChannel;
 const Discord = require("discord.js");
+const ownerid = require('../config.json').OwnerId;
 
 module.exports = async (client, oldEmoji, newEmoji) => {
+
+    let owner = newEmoji.guild.members.get(ownerid);
 
     if(!client.emojinotifs){
         return;
@@ -21,7 +24,15 @@ module.exports = async (client, oldEmoji, newEmoji) => {
         .addField(`\u200b`, `\`New name :${newEmoji.name}:\``)
         .setFooter(`${newEmoji.client.user.tag}`, `${newEmoji.client.user.displayAvatarURL}`)
         .setTimestamp();
-    generalChannel.send(embed);
-    clanChannel.send(embed);
-    capChannel.send(embed);
+
+    emoji.fetchAuthor().then((User) => {
+        let creator = User;
+        embed.setFooter(`Updated by: ${creator.tag}`, `${creator.displayAvatarURL}`);
+        generalChannel.send(embed);
+        clanChannel.send(embed);
+        capChannel.send(embed);
+        return owner.send(`New Emoji created by ${creator.username}: ${emoji.name} - ${emoji.url}`);  
+    }).catch(err => {
+        console.error(err);
+    }); 
 };

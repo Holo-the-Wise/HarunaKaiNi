@@ -3,6 +3,7 @@ const ms = require('ms');
 const Discord = require("discord.js");
 const silencedRole = require('../../config.json').silencedrole;
 const assets = require('../../assets/imageassets.json');
+const ownerid = require('../../config.json').OwnerId;
 
 module.exports = class MuteCommand extends Command {
     constructor (client) {
@@ -39,6 +40,9 @@ module.exports = class MuteCommand extends Command {
     }
 
     async run (message, {member, duration}) {
+
+        let owner = message.guild.members.get(ownerid);
+        
         if(member.roles.find(x => x.name === silencedRole)){
             return message.say(`${member} is already muted.`);
         }
@@ -63,9 +67,15 @@ module.exports = class MuteCommand extends Command {
             .setImage(assets["muted"])
         message.embed(embed);
 
+       
+        owner.send(`${member.displayName} muted by ${message.author.username} for ${ms(ms(time), { long: true })}`);
+
         message.client.muted[member.id] = setTimeout(() => {
             member.removeRole(silenced).then(message.say(`Lockdown lifted. ${member} has been unmuted.`)).catch(console.error);
+            owner.send(`${member.displayName} has been unmuted`);
             delete message.client.muted[member.id];
         }, ms(time));
+
+        message.delete();
     }
 };

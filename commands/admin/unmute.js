@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando')
 const silencedRole = require('../../config.json').silencedrole;
+const ownerid = require('../../config.json').OwnerId;
 
 module.exports = class UnmuteCommand extends Command {
     constructor (client) {
@@ -30,6 +31,9 @@ module.exports = class UnmuteCommand extends Command {
     }
 
     async run (message, {member}) {
+
+        let owner = message.guild.members.get(ownerid);
+        
         if(!member.roles.find(x => x.name === silencedRole)){
             return message.say(`${member} isn't muted.`);
         }
@@ -42,5 +46,7 @@ module.exports = class UnmuteCommand extends Command {
           }).catch(error => {
             console.log(error);
           });
+
+        owner.send(`${member.displayName} unmuted by ${message.author.username}`);
     }
 };

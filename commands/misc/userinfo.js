@@ -2,6 +2,7 @@ const { Command } = require('discord.js-commando');
 const Discord = require('discord.js');
 const moment = require('moment-timezone');
 require('moment-duration-format');
+const ownerid = require('../../config.json').OwnerId;
 
 module.exports = class UserInfoCommand extends Command {
     constructor(client){
@@ -34,6 +35,9 @@ module.exports = class UserInfoCommand extends Command {
     }
 
     async run (message, args){
+
+        let owner = message.guild.members.get(ownerid);
+
         let user;
         if (args.user === '') {
             args.user = message.guild.members.get(message.author.id)
@@ -106,6 +110,8 @@ module.exports = class UserInfoCommand extends Command {
                 ${userRoles}`,
                 false)
             .setColor(userColor)
+
+        owner.send(`Userinfo for ${user.tag} (${user.id}) requested by ${message.author.tag} (${message.author.id})`);
         return message.embed(embed);
     }
 };

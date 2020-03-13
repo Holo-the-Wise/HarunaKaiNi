@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando')
 const Discord = require("discord.js");
+const ownerid = require('../../config.json').OwnerId;
 
 
 module.exports = class PurgeCommand extends Command {
@@ -42,7 +43,8 @@ module.exports = class PurgeCommand extends Command {
     }
 
     async run (message, {number, member}) {
-        
+
+        let owner = message.guild.members.get(ownerid);
 
         let deleteAmount = number;
 
@@ -55,6 +57,9 @@ module.exports = class PurgeCommand extends Command {
             message.channel.send(`Deleting last ${deleteAmount} messages...`).then(msg => {
                 msg.edit(`Successfully deleted ${deleteAmount} messages!`);
             });
+
+            owner.send(`${deleteAmount} messages purged by ${message.author.username}`);
+
         } else {
             message.channel.fetchMessages({}).then((messages) => {
             let userMessages = messages.filter(m => m.author.id === member.id).array().slice(0, deleteAmount+1);
@@ -63,6 +68,8 @@ module.exports = class PurgeCommand extends Command {
             message.channel.send(`Deleting last ${deleteAmount} messages by user mentioned: ${member}`).then(msg => {
                 msg.edit(`Successfully deleted ${deleteAmount} messages by ${member}!`);
             });
+
+            owner.send(`${deleteAmount} messages from ${member.displayName} purged by ${message.author.username}`);
         }
     }
 };
