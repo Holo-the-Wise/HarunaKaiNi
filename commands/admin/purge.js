@@ -58,7 +58,7 @@ module.exports = class PurgeCommand extends Command {
                 msg.edit(`Successfully deleted ${deleteAmount} messages!`);
             });
 
-            owner.send(`${deleteAmount} messages purged by ${message.author.username}`);
+            owner.send(`${deleteAmount} messages in ${message.channel.name} purged by ${message.author.username}`);
 
         } else {
             message.channel.fetchMessages({}).then((messages) => {
@@ -69,7 +69,7 @@ module.exports = class PurgeCommand extends Command {
                 msg.edit(`Successfully deleted ${deleteAmount} messages by ${member}!`);
             });
 
-            owner.send(`${deleteAmount} messages from ${member.displayName} purged by ${message.author.username}`);
+            owner.send(`${deleteAmount} messages in ${message.channel.name} from ${member.displayName} purged by ${message.author.username}`);
         }
     }
 };
