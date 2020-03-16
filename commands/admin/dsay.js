@@ -12,18 +12,16 @@ module.exports = class MuteCommand extends Command {
             examples: ['dsay2 [channel] [message]'],
             format: 'dsay2 [channel] [message]',
             args: [{
-                    key: 'dsaytext',
-                    prompt: 'Please type a message',
-                    type: 'string',
-                }
-                // ,
-                // {
-                //     key: 'textchannel',
-                //     prompt: 'Please enter a channel',
-                //     type: 'channel',
-                //     default: ''
-                // }
-            ],
+                key: 'textchannel',
+                prompt: 'Please enter a channel',
+                type: 'channel',
+                default: ''
+            },
+            {
+                key: 'dsaytext',
+                prompt: 'Please type a message',
+                type: 'string',
+            }],
             guildOnly: false,
             ownerOnly: true
         })

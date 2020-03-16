@@ -4,7 +4,7 @@ const ownerid = require('../config.json').OwnerId;
 
 module.exports = async (client, member) => {
 
-    let owner = message.guild.members.get(ownerid);
+    let owner = member.guild.members.get(ownerid);
     
     let guild = member.guild;
     capChannel = guild.channels.find(u => u.id == capChannelID);
