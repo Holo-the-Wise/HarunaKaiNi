@@ -14,5 +14,5 @@ module.exports = async (client, member) => {
     capChannel.send(`${member.user} (${member.user.username}) has left the server :cry:`);
     generalChannel.send(`${member.user} (${member.user.username}) has left the server :cry:`);
 
-    return owner.send(`${member.user.username} has left the server.`);
+    return owner.send(`${member.user.tag} has left the server.`);
 };

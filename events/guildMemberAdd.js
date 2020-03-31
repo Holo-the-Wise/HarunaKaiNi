@@ -67,6 +67,6 @@ module.exports = async (client, member) => {
         generalChannel.send(finalWelcome, attachment);
         capChannel.send(`${member.user} has joined the server, welcome!`);
 
-        return owner.send(`${member.user.username} has joined the server`);
+        return owner.send(`${member.user.tag} has joined the server`);
     }
 };
