@@ -55,7 +55,7 @@ module.exports = class TimeCommand extends Command {
         return message.channel.send(
             `\n\n${timeINDIA} in India\n` +
             `${timeBANG} in Bangladesh\n` +
-            `${timeINDO} in Indonesia (West)/Vietnam\n` +
+            `${timeINDO} in Indonesia (West)/Vietnam/Thailand\n` +
             `${timeSG} in Singapore/HK/Philippines/Indonesia (Central)\n` +
             `${timeJP} in Japan\n` +
             `${timeSA} in South Australia\n` +
