@@ -18,7 +18,7 @@ module.exports = class CBListCommand extends Command {
 
 
     hasPermission(message) {
-        let PermissionLevel = 2;
+        let PermissionLevel = 1;
         let msglevel = message.client.elevation(message);
         return msglevel >= PermissionLevel;
     }
