@@ -1,4 +1,3 @@
-const generalChannelID = require("../config.json").generalChannel;
 const capChannelID = require("../config.json").capChannel;
 const ownerid = require('../config.json').OwnerId;
 
