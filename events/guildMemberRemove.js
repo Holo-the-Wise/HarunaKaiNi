@@ -8,11 +8,10 @@ module.exports = async (client, member) => {
     
     let guild = member.guild;
     capChannel = guild.channels.find(u => u.id == capChannelID);
-    let generalChannel = guild.channels.find(u => u.id == generalChannelID);
 
     console.log(`${member.user.username}  has left ${guild}`);
     capChannel.send(`${member.user} (${member.user.username}) has left the server :cry:`);
-    generalChannel.send(`${member.user} (${member.user.username}) has left the server :cry:`);
+    
 
     return owner.send(`${member.user.tag} has left the server.`);
 };
