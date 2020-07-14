@@ -32,7 +32,6 @@ module.exports = class RollcallCommand extends Command {
         let owner = message.guild.members.get(ownerid);
 
         let cwconfirmed = message.guild.roles.find(u => u.name == "CB Confirmed");
-        let cwmaybe = message.guild.roles.find(u => u.name == "CB Maybe");
         let fishrole = message.guild.roles.find(u => u.name == "FISH");
 
         if (!cwconfirmed && !cwmaybe) {
@@ -42,13 +41,12 @@ module.exports = class RollcallCommand extends Command {
         if (message.client.rollcallActive) {
             return message.channel.send("A CW rolecall is already active for tonight.");
         }
-        const gao = message.guild.emojis.find(emoji => emoji.name === "gao");
-        const love = message.guild.emojis.find(emoji => emoji.name === "Love");
+        const hawoo = message.guild.emojis.find(emoji => emoji.name === "hawoo");
+        const cheer = message.guild.emojis.find(emoji => emoji.name === "a_nekocheer");
 
-        message.channel.send(`Ahoy ${fishrole}, Haruna desu! ${gao} Please react Y or M on your availability for clan wars tonight! ${love}`).then(msg => {
+        message.channel.send(`Ahoy ${fishrole}, Haruna desu!  Please react ${hawoo} if you are available for clan wars tonight! Good luck and have fun! ${cheer}`).then(msg => {
             message.delete();
-            msg.react("🇾");
-            msg.react("🇲")
+            msg.react(hawoo.id);
             message.client.rollcallMsgId = msg.id;
             message.client.rollcallActive = true;
             owner.send(`Rollcall started by ${message.author}`);
@@ -59,10 +57,7 @@ module.exports = class RollcallCommand extends Command {
                 for (var i = 0; i < membersArray.length; i++) {
                     membersArray[i].removeRole(cwconfirmed);
                 }
-                let membersArray2 = cwmaybe.members.array();
-                for (var i = 0; i < membersArray2.length; i++) {
-                    membersArray2[i].removeRole(cwmaybe);
-                }
+                
                 message.client.rollcallMsgId  = 0;
                 message.client.rollcallActive = false;
                 msg.delete();

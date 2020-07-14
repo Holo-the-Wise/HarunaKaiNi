@@ -32,9 +32,8 @@ module.exports = class RollcallCommand extends Command {
         let owner = message.guild.members.get(ownerid);
 
         let cwconfirmed = message.guild.roles.find(u => u.name == "CB Confirmed");
-        let cwmaybe = message.guild.roles.find(u => u.name == "CB Maybe");
     
-        if (!cwconfirmed && !cwmaybe) {
+        if (!cwconfirmed) {
             return message.channel.send("Error no CB roles found");
         };
 
@@ -46,12 +45,8 @@ module.exports = class RollcallCommand extends Command {
         for(var i = 0; i < membersArray.length; i++){
             membersArray[i].removeRole(cwconfirmed);
         }
-        let membersArray2 = cwmaybe.members.array();
-        for(var i = 0; i < membersArray2.length; i++){
-            membersArray2[i].removeRole(cwmaybe);
-        }
+        
         message.channel.send(`Rollcall cleared`);
         owner.send(`Rollcall clear used by ${message.author}`);
-        
     }
 };
