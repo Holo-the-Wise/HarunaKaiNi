@@ -62,8 +62,8 @@ module.exports = class PurgeCommand extends Command {
 
         } else {
             message.channel.fetchMessages({}).then((messages) => {
-            let userMessages = messages.filter(m => m.author.id === member.id).array().slice(0, deleteAmount+1);
-            message.channel.bulkDelete(userMessages).catch(error => console.log(error.stack));
+                let userMessages = messages.filter(m => m.author.id === member.id).array().slice(0, deleteAmount+1);
+                message.channel.bulkDelete(userMessages).catch(error => console.log(error.stack));
             });
             message.channel.send(`Deleting last ${deleteAmount} messages by user mentioned: ${member}`).then(msg => {
                 msg.edit(`Successfully deleted ${deleteAmount} messages by ${member}!`);

@@ -32,9 +32,10 @@ module.exports = class RollcallCommand extends Command {
         let owner = message.guild.members.get(ownerid);
 
         let cwconfirmed = message.guild.roles.find(u => u.name == "CB Confirmed");
+        let cwmemes = message.guild.roles.find(u => u.name == "Supreme Meme Stream Dream Team");
         let fishrole = message.guild.roles.find(u => u.name == "FISH");
 
-        if (!cwconfirmed && !cwmaybe) {
+        if (!cwconfirmed && !cwmemes) {
             return message.channel.send("Error no CB roles found");
         };
     
@@ -43,10 +44,12 @@ module.exports = class RollcallCommand extends Command {
         }
         const hawoo = message.guild.emojis.find(emoji => emoji.name === "hawoo");
         const cheer = message.guild.emojis.find(emoji => emoji.name === "a_nekocheer");
+        const ramspin = message.guild.emojis.find(emoji => emoji.name === "a_RamSpin");
 
-        message.channel.send(`Ahoy ${fishrole}, Haruna desu!  Please react ${hawoo} if you are available for clan wars tonight! Good luck and have fun! ${cheer}`).then(msg => {
+        message.channel.send(`Ahoy ${fishrole}, Haruna desu!  Please react ${hawoo} if you are available for Clan Battles tonight! If you just want to meme please react ${ramspin}. \n Good luck and have fun! ${cheer}`).then(msg => {
             message.delete();
             msg.react(hawoo.id);
+            msg.react(ramspin.id);
             message.client.rollcallMsgId = msg.id;
             message.client.rollcallActive = true;
             owner.send(`Rollcall started by ${message.author}`);
@@ -56,6 +59,11 @@ module.exports = class RollcallCommand extends Command {
                 let membersArray = cwconfirmed.members.array();
                 for (var i = 0; i < membersArray.length; i++) {
                     membersArray[i].removeRole(cwconfirmed);
+                }
+
+                let membersArray2 = cwmemes.members.array();
+                for (var i = 0; i < membersArray2.length; i++) {
+                    membersArray2[i].removeRole(cwmemes);
                 }
                 
                 message.client.rollcallMsgId  = 0;
