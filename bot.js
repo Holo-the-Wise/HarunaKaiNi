@@ -41,13 +41,18 @@ client.elevation = message => {
     let permlvl = 0;
     let member_role = message.guild.roles.find(x => x.name === "Line Officers");
     if (member_role && message.member.roles.has(member_role.id)) permlvl = 1;
+    
     let captain_role = message.guild.roles.find(x => x.name === "Captains");
     if (captain_role && message.member.roles.has(captain_role.id)) permlvl = 2;
+    
     let admin_role = message.guild.roles.find(x => x.name === "Admirals");
     if (admin_role && message.member.roles.has(admin_role.id)) permlvl = 3;
-    let admin2_role = message.guild.roles.find(x => x.name === "Admirals of the Fleet");
-    if (admin2_role && message.member.roles.has(admin2_role.id)) permlvl = 3;
+
+    let admin2role = message.guild.roles.find(x => x.name === "Admirals of The Fleet");
+    if (admin2role && message.member.roles.has(admin2role.id)) permlvl = 3;
+    
     if (message.author.id == ownerId) permlvl = 4;
+    console.log(`permlvl: ${permlvl}`);
     return permlvl;
 };
 
