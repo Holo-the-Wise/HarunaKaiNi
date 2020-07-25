@@ -1,0 +1,8 @@
+{
+    "token": "INSERT TOKEN",
+    "OwnerId": "OWNERID",
+    "silencedrole": "Silenced",
+    "generalChannel": "GENERAL CHANNEL ID",
+    "clanChannel": "CLAN CHANNEL ID",
+    "capChannel": "LOG CHANNEL ID"
+}
