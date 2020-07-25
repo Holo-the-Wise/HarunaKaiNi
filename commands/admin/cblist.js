@@ -28,7 +28,7 @@ module.exports = class CBListCommand extends Command {
         let owner = message.guild.members.get(ownerid);
 
         let cwconfirmed = message.guild.roles.find(u => u.name == "CB Confirmed");
-        let cwmaybe = message.guild.roles.find(u => u.name == "CB Maybe");
+        // let cwmaybe = message.guild.roles.find(u => u.name == "CB Maybe");
         
         let msg = "";
 
@@ -40,11 +40,11 @@ module.exports = class CBListCommand extends Command {
                 msg = msg.concat(member.user.username,`\n`);
             });
 
-            msg = msg.concat("\n","**CB Maybe**\n");
+            // msg = msg.concat("\n","**CB Maybe**\n");
 
-            cwmaybe.members.forEach(member => {
-                msg = msg.concat(member.user.username,`\n`);
-            });
+            // cwmaybe.members.forEach(member => {
+            //     msg = msg.concat(member.user.username,`\n`);
+            // });
 
             owner.send(`CBlist requested by ${message.author.tag} (${message.author.id})`);
         
