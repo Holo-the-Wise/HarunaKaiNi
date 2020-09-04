@@ -35,7 +35,7 @@ module.exports = class EightballCommand extends Command {
             "7": "Outlook good",
             "8": "Yes",
             "9": "Signs point to yes",
-            "10": "Reply hazy try again",
+            "10": "Reply hazy, try again",
             "11": "Ask again later",
             "12": "Better not tell you now",
             "13": "Cannot predict now",
