@@ -1,11 +1,22 @@
 {
   "name": "harunakaini",
   "version": "1.0.0",
-  "description": "",
+  "description": "Haruna Bot for FISHnCHIPS Discord",
   "main": "bot.js",
+  "dependencies": {
+    "canvas": "^2.6.1",
+    "discord.js": "^12.3.1",
+    "farmhash": "^3.1.0",
+    "lodash": "^4.17.20",
+    "moment": "^2.27.0",
+    "moment-duration-format": "^2.3.2",
+    "moment-timezone": "^0.5.31",
+    "node-superfetch": "^0.1.10",
+    "sqlite3": "^5.0.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-    
   },
   "repository": {
     "type": "git",
@@ -16,19 +27,5 @@
   "bugs": {
     "url": "https://github.com/HasithaAbeysekera/HarunaKaiNi/issues"
   },
-  "homepage": "https://github.com/HasithaAbeysekera/HarunaKaiNi#readme",
-  "dependencies": {
-    "canvas": "^2.6.1",
-    "discord.js": "^11.4.2",
-    "discord.js-commando": "^0.10.0",
-    "farmhash": "^2.1.0",
-    "lodash": "^4.17.19",
-    "moment": "^2.23.0",
-    "moment-duration-format": "^2.2.2",
-    "moment-timezone": "^0.5.23",
-    "node-superfetch": "^0.1.9",
-    "request": "2.81.0",
-    "sqlite3": "^4.1.1",
-    "superfetch": "^1.1.1"
-  }
+  "homepage": "https://github.com/HasithaAbeysekera/HarunaKaiNi#readme"
 }
