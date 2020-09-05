@@ -6,6 +6,7 @@
   "dependencies": {
     "canvas": "^2.6.1",
     "discord.js": "^11.6.4",
+    "discord.js-commando": "^0.10.0",
     "farmhash": "^3.1.0",
     "lodash": "^4.17.20",
     "moment": "^2.27.0",
