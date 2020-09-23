@@ -5,10 +5,10 @@ module.exports = class EmojiNotifCommand extends Command {
     constructor (client) {
         super(client, {
             name: 'emojinotifs', // Name of this command.
-            memberName: 'emojinotifs', // Name of this command.
-            group: 'admin', // The group the command belongs to, assigned upon registration.
-            description: 'Toggle emoji notifications', // Short description of the command.
-            aliases: [ // Aliases for this command.
+            memberName: 'emojinotifs', 
+            group: 'admin', 
+            description: 'Toggle emoji notifications',
+            aliases: [ 
                 'emojinotif',
             ],
             examples: [

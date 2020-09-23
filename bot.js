@@ -3,8 +3,8 @@ const path = require('path');
 const discord = require('discord.js');
 const client = new Commando.Client({
     commandPrefix: '-',
-    owner: ['274773384657633281'],
-    unknownCommandResponse: false,
+    owner: ['274773384657633281', '118348886262677506'] ,
+    unknownCommandResponse: true,
     disableEveryone: true
 });
 const token = require("./config.json").token;
@@ -18,10 +18,10 @@ client.emojinotifs = true;
 client.rollcallActive = false;
 client.rollcallMsgId = 0;
 // client.owneruser = client.owner;
-
-
-
 client.muted = []; //muted users are here
+
+
+
 client.registry
     .registerDefaultTypes()
     .registerGroups([
@@ -37,6 +37,7 @@ client.elevation = message => {
     /* This function should resolve to an ELEVATION level which
        is then sent to the command handler for verification*/
     let permlvl = 0;
+    
     let member_role = message.guild.roles.find(x => x.name === "Line Officers");
     if (member_role && message.member.roles.has(member_role.id)) permlvl = 1;
     

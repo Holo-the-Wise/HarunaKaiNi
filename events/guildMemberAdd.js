@@ -3,17 +3,17 @@ const capChannelID = require("../config.json").capChannel;
 let welcome = require('../assets/welcome.json');
 const silencedRole = require('../config.json').silencedrole;
 const Discord = require("discord.js");
+// const MessageAttachment = require('discord.js');
 const Canvas = require('canvas');
-const snekfetch = require('snekfetch');
 const ownerid = require('../config.json').OwnerId;
 
 module.exports = async (client, member) => {
 
-    let owner = member.guild.members.get(ownerid);
+    let owner = member.guild.members.cache.get(ownerid);
 
     let guild = member.guild;
-    let generalChannel = guild.channels.find(u => u.id == generalChannelID);
-    let capChannel = guild.channels.find(u => u.id == capChannelID);
+    let generalChannel = guild.channels.cache.find(u => u.id == generalChannelID);
+    let capChannel = guild.channels.cache.find(u => u.id == capChannelID);
     console.log(`${member.user.username} has joined ${guild}`);
 
     if (client.muted[member.id]) {
@@ -57,13 +57,21 @@ module.exports = async (client, member) => {
         ctx.closePath();
         ctx.clip();
 
-        const {
-            body: buffer
-        } = await snekfetch.get(member.user.displayAvatarURL);
-        const avatar = await Canvas.loadImage(buffer);
+        //breaks here
+
+
+        // const {
+        //     body: buffer
+        // } = await nodefetch(member.user.displayAvatarURL);
+        // } = await snekfetch.get(member.user.displayAvatarURL);
+        // console.log(member.user.avatarURL)
+        const avatar = await Canvas.loadImage(member.user.displayAvatarURL({format: 'jpg', dynamic: true } ));
+        
+
+        //
         
         ctx.drawImage(avatar, 135, 313, 185, 185);
-        const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-image.png');
+        const attachment = new Discord.MessageAttachment(canvas.toBuffer());
         generalChannel.send(finalWelcome, attachment);
         capChannel.send(`${member.user} has joined the server, welcome!`);
 
