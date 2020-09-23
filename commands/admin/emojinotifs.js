@@ -33,7 +33,7 @@ module.exports = class EmojiNotifCommand extends Command {
         message.client.emojinotifs = !message.client.emojinotifs;
         
         console.log(`Emoji notifications toggled by ${message.author.username}. Current state: ${message.client.emojinotifs ? "enabled" : "disabled"}`);
-        owner.send(`Emoji notifications toggled by ${message.author.username}. Current state: ${message.client.emojinotifs ? "enabled" : "disabled"}`);
+        // owner.send(`Emoji notifications toggled by ${message.author.username}. Current state: ${message.client.emojinotifs ? "enabled" : "disabled"}`);
 
         return message.channel.send(`Emoji notifications are now ${message.client.emojinotifs ? "enabled" : "disabled"}`).then(message.delete());
     }

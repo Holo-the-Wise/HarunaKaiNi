@@ -43,14 +43,14 @@ module.exports = class QuoteCountCommand extends Command {
         if(quotes[userId]){
             let size = quotes[userId].length
 
-            owner.send(`Quotecount of ${userToQuote.tag} (${userToQuote.id}) requested by ${message.author.tag} (${message.author.id}). Returned: ${size}`);
+            // owner.send(`Quotecount of ${userToQuote.tag} (${userToQuote.id}) requested by ${message.author.tag} (${message.author.id}). Returned: ${size}`);
             if(size == 1){
                 return message.say(`${userToQuote.tag} has ${size} quote`);
             } else {
                 return message.say(`${userToQuote.tag} has ${size} quotes`)
             }
         } else {
-            owner.send(`Quotecount of ${userToQuote.tag} (${userToQuote.id}) requested by ${message.author.tag} (${message.author.id}). Returned: none.`);
+            // owner.send(`Quotecount of ${userToQuote.tag} (${userToQuote.id}) requested by ${message.author.tag} (${message.author.id}). Returned: none.`);
             return message.say(`No quotes found for ${userToQuote.tag}`);
         }
     }

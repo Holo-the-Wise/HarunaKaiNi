@@ -111,7 +111,7 @@ module.exports = class UserInfoCommand extends Command {
                 false)
             .setColor(userColor)
 
-        owner.send(`Userinfo for ${user.tag} (${user.id}) requested by ${message.author.tag} (${message.author.id})`);
+        // owner.send(`Userinfo for ${user.tag} (${user.id}) requested by ${message.author.tag} (${message.author.id})`);
         return message.embed(embed);
     }
 };

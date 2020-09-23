@@ -26,8 +26,8 @@ module.exports = class EmojiCount extends Command {
     async run(message, args) {
 
         // let owner = message.guild.members.get(ownerid);
-        if(args.member == "clan"){
-            console.log("using clan")
-        }
+    //     if(args.member == "clan"){
+    //         console.log("using clan")
+    //     }
     }
 };

@@ -25,7 +25,7 @@ module.exports = class ShutdownCommand extends Command {
         let owner = message.guild.members.get(ownerid);
         message.channel.send("Shutting down, Goodbye :wave:");
 
-        const messaged = await owner.send(`Haruna K2 shutdown by ${message.author.tag}`);
+        // const messaged = await owner.send(`Haruna K2 shutdown by ${message.author.tag}`);
         return messaged.client.destroy();
     }
 };

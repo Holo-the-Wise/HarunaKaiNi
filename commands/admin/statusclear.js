@@ -25,6 +25,6 @@ module.exports = class StatusClearCommand extends Command {
             }})
         .then().catch(console.error);
         
-        owner.send(`Status cleared by ${message.author.username}`);
+        // owner.send(`Status cleared by ${message.author.username}`);
     }
 };

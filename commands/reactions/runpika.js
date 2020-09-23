@@ -23,7 +23,7 @@ module.exports = class RunpikaCommand extends Command {
             .setImage(assets["runpika"])
             .setColor(0x00FFFF)
 
-        owner.send(`Runpika command activated by ${message.author.tag} (${message.author.id})`);
+        // owner.send(`Runpika command activated by ${message.author.tag} (${message.author.id})`);
         return message.embed(embed).then(message.delete());
     }
 };

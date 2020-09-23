@@ -66,6 +66,6 @@ module.exports = class SetStatusCommand extends Command {
             return message.say("Unrecognised status type. Please check help for details.");
         }
 
-        owner.send(`${statustype} status changed to ${statustext} by ${message.author.username}`);
+        // owner.send(`${statustype} status changed to ${statustext} by ${message.author.username}`);
     }
 };

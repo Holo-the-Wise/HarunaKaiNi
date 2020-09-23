@@ -50,7 +50,7 @@ module.exports = class TimeCommand extends Command {
         let timeNZ = timeformat.tz("Pacific/Auckland").format('HH:mm');
         let timeJP = timeformat.tz("Asia/Tokyo").format('HH:mm');
 
-        owner.send(`Timezone: ${time} requested by ${message.author.tag} (${message.author.id})`);
+        // owner.send(`Timezone: ${time} requested by ${message.author.tag} (${message.author.id})`);
         
         return message.channel.send(
             `\n\n${timeINDIA} in India\n` +

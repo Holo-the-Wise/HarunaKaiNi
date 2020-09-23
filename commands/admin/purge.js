@@ -69,7 +69,7 @@ module.exports = class PurgeCommand extends Command {
                 msg.edit(`Successfully deleted ${deleteAmount} messages by ${member}!`);
             });
 
-            owner.send(`${deleteAmount} messages in ${message.channel.name} from ${member.displayName} purged by ${message.author.username}`);
+            // owner.send(`${deleteAmount} messages in ${message.channel.name} from ${member.displayName} purged by ${message.author.username}`);
         }
     }
 };

@@ -68,7 +68,7 @@ module.exports = class MuteCommand extends Command {
         message.embed(embed);
 
        
-        owner.send(`${member.displayName} muted by ${message.author.username} for ${ms(ms(time), { long: true })}`);
+        // owner.send(`${member.displayName} muted by ${message.author.username} for ${ms(ms(time), { long: true })}`);
 
         message.client.muted[member.id] = setTimeout(() => {
             member.removeRole(silenced).then(message.say(`Lockdown lifted. ${member} has been unmuted.`)).catch(console.error);

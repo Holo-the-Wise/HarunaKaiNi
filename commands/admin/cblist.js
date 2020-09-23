@@ -46,7 +46,7 @@ module.exports = class CBListCommand extends Command {
             //     msg = msg.concat(member.user.username,`\n`);
             // });
 
-            owner.send(`CBlist requested by ${message.author.tag} (${message.author.id})`);
+            // owner.send(`CBlist requested by ${message.author.tag} (${message.author.id})`);
         
             return message.channel.send(msg);
         }

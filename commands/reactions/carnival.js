@@ -23,7 +23,7 @@ module.exports = class CarnivalCommand extends Command {
             .setImage(assets["carnival"])
             .setColor(15750656)
         
-        owner.send(`Carnival command activated by ${message.author.tag} (${message.author.id})`);
+        // owner.send(`Carnival command activated by ${message.author.tag} (${message.author.id})`);
         return message.embed(embed).then(message.delete());
     }
 };

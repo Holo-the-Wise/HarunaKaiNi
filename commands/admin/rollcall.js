@@ -52,7 +52,7 @@ module.exports = class RollcallCommand extends Command {
             msg.react(ramspin.id);
             message.client.rollcallMsgId = msg.id;
             message.client.rollcallActive = true;
-            owner.send(`Rollcall started by ${message.author}`);
+            // owner.send(`Rollcall started by ${message.author}`);
         
     
             setTimeout(function () {

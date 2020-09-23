@@ -23,7 +23,7 @@ module.exports = class HestiaDanceCommand extends Command {
             .setImage(assets["hestiadance"])
             .setColor(0x00FFFF)
 
-        owner.send(`Hestiadance command activated by ${message.author.tag} (${message.author.id})`);
+        // owner.send(`Hestiadance command activated by ${message.author.tag} (${message.author.id})`);
         return message.embed(embed).then(message.delete());
     }
 };

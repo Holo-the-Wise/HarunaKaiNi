@@ -40,7 +40,7 @@ module.exports = class AvatarCommand extends Command {
             .setDescription(`[Avatar URL](${avatar})`)
             .setImage(avatar)
 
-        owner.send(`${message.author.tag} (${message.author.id}) requested avatar of ${member.tag} (${member.id}): ${avatar}`);    
+        // owner.send(`${message.author.tag} (${message.author.id}) requested avatar of ${member.tag} (${member.id}): ${avatar}`);    
         return message.channel.send({ embed });
     }
 };

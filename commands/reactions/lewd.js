@@ -25,7 +25,7 @@ module.exports = class LewdCommand extends Command {
             .setImage(assets["lewd"][randNumber])
             .setColor(0xFFFFFF)
 
-        owner.send(`Lewd command activated by ${message.author.tag} (${message.author.id})`);
+        // owner.send(`Lewd command activated by ${message.author.tag} (${message.author.id})`);
         return message.embed(embed).then(message.delete());
     }
 };

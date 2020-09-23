@@ -53,6 +53,6 @@ module.exports = class RollcallCommand extends Command {
         }
         
         message.channel.send(`Rollcall cleared`);
-        owner.send(`Rollcall clear used by ${message.author}`);
+        // owner.send(`Rollcall clear used by ${message.author}`);
     }
 };

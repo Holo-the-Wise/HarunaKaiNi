@@ -45,7 +45,7 @@ module.exports = class QuoteCommand extends Command {
                 let quoteNumber = Math.floor((Math.random() * size));
                 message.say(`${quotes[userId][quoteNumber]}`);
 
-                owner.send(`Quotes from ${userToQuote.tag} (${userToQuote.id}) requested from ${message.author.tag} (${message.author.id})`);
+                // owner.send(`Quotes from ${userToQuote.tag} (${userToQuote.id}) requested from ${message.author.tag} (${message.author.id})`);
             } else {
                 return message.say(`No quotes found for ${userToQuote.tag}`);
             }

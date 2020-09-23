@@ -3,7 +3,7 @@ const path = require('path');
 const discord = require('discord.js');
 const client = new Commando.Client({
     commandPrefix: '-',
-    owner: '118348886262677506',
+    owner: ['274773384657633281'],
     unknownCommandResponse: false,
     disableEveryone: true
 });
@@ -32,8 +32,6 @@ client.registry
     .registerDefaultGroups()
     .registerDefaultCommands()
     .registerCommandsIn(path.join(__dirname, 'commands'));
-
-
 
 client.elevation = message => {
     /* This function should resolve to an ELEVATION level which

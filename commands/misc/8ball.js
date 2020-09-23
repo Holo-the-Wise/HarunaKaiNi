@@ -50,7 +50,7 @@ module.exports = class EightballCommand extends Command {
 
         let hash = farmhash.hash32(question);
         let response = hash % 20;
-        owner.send(`8ball question from ${message.author.tag} (${message.author.id}): ${question}`);
+        // owner.send(`8ball question from ${message.author.tag} (${message.author.id}): ${question}`);
         return message.say(answer[response.toString()]);
     }
 };

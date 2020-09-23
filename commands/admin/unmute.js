@@ -47,6 +47,6 @@ module.exports = class UnmuteCommand extends Command {
             console.log(error);
           });
 
-        owner.send(`${member.displayName} unmuted by ${message.author.username}`);
+        // owner.send(`${member.displayName} unmuted by ${message.author.username}`);
     }
 };
