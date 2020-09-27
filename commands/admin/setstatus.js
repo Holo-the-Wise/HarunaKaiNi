@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando')
-const ownerid = require('../../config.json').OwnerId;
+const owners = require('../../config.json').OwnerId;
 
 module.exports = class SetStatusCommand extends Command {
     constructor (client) {
@@ -32,7 +32,6 @@ module.exports = class SetStatusCommand extends Command {
 
     async run (message, {statustype, statustext}) {
 
-        let owner = message.guild.members.get(ownerid);
 
 
         if (statustype === "playing" || statustype === "game"){

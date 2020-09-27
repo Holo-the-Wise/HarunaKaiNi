@@ -1,6 +1,6 @@
 const { Command } = require('discord.js-commando')
 const silencedRole = require('../../config.json').silencedrole;
-const ownerid = require('../../config.json').OwnerId;
+const owners = require('../../config.json').OwnerId;
 
 module.exports = class UnmuteCommand extends Command {
     constructor (client) {

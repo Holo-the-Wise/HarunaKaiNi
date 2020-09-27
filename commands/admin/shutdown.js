@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const ownerid = require('../../config.json').OwnerId;
+const owners = require('../../config.json').OwnerId;
 
 module.exports = class ShutdownCommand extends Command {
     constructor (client) {

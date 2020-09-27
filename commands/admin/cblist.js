@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const ownerid = require('../../config.json').OwnerId;
+const logger = require('../../util/logging');
 
 module.exports = class CBListCommand extends Command {
     constructor (client) {
@@ -7,12 +7,9 @@ module.exports = class CBListCommand extends Command {
             name: 'cblist', 
             memberName: 'cblist', 
             group: 'admin', 
-            description: 'Shows list of all CB role players',
+            description: 'Shows list of all CB players who have responded to rollcall',
             aliases: ['cbwho', 'cwlist'],
-            format: '[cblist]', 
-            guarded: false, 
             guildOnly: true,
-            ownerOnly: false 
         })
     }
     
@@ -22,24 +19,29 @@ module.exports = class CBListCommand extends Command {
         return msglevel >= PermissionLevel;
     }
 
-    async run (message, args) {
-
-        let owner = message.guild.members.get(ownerid);
-
-        let cwconfirmed = message.guild.roles.find(u => u.name == "CB Confirmed");
-        // let cwmaybe = message.guild.roles.find(u => u.name == "CB Maybe");
+    async run (message) {
         
+        // logging
+        logger();
+        // message.client.owners.forEach(owner => {
+        //     owner.send(`=======================================================\n` + 
+        //     `Guild Command CBList activated by ${message.author} (ID: ${message.author.id})`);
+        // });
+
+        // console.log(`=======================================================\n` + 
+        // `Guild Command CBList activated by ${message.author.username} (ID: ${message.author.id})`);
+
+        let cwconfirmed = message.guild.roles.cache.find(u => u.name == "CB Confirmed");
+  
         let msg = "";
 
-        if (cwconfirmed.members.array().length == 0 && cwmaybe.members.array().length == 0){
+        if (cwconfirmed.members.array().length == 0){
             return message.channel.send("CBList is currently empty");
         } else {
-            msg = msg.concat("**CB Confirmed**\n");
+            msg = msg.concat("**CB Confirmed**\n\n");
             cwconfirmed.members.forEach(member => {
                 msg = msg.concat(member.user.username,`\n`);
             });
-
-            
             return message.channel.send(msg);
         }
     }

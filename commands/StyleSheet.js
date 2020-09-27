@@ -9,14 +9,11 @@ const { Command } = require('discord.js-commando')
 module.exports = class StyleSheetCommand extends Command {
     constructor (client) {
         super(client, {
-            name: 'StyleSheet', // Name of this command.
-            memberName: 'StyleSheet', // Name of this command.
+            name: '', // Name of this command.
+            memberName: '', // Name of this command.
             group: 'StyleSheet', // The group the command belongs to, assigned upon registration.
             description: 'A short description goes here.', // Short description of the command.
-            details: oneLine` // Short description of the command
-            A long description for
-            your command goes here.
-            `,
+            details:` A long description for your command goes here.`,
             aliases: [ // Aliases for this command.
                 'SheetStyle',
                 'CommandExample'
@@ -53,16 +50,17 @@ module.exports = class StyleSheetCommand extends Command {
         })
     }
 
-
-    // hasPermission(message) {
-    //     if(message.channel.type == "text"){
-    //     let PermissionLevel = 0;
-    //     let msglevel = message.client.elevation(message);
-    //     return msglevel >= PermissionLevel;
-    //     }
-    //     else {return true;}
-    //}///if permission checking is neccessary,
-    ///remove this one from this command once an admin one has been done
+    //to check if correct permission level. check hasPermission() in bot.js to see levels
+    /*
+    hasPermission(message) 
+        if(message.channel.type == "text"){
+        let PermissionLevel = 0;
+        let msglevel = message.client.elevation(message);
+        return msglevel >= PermissionLevel;
+        }
+        else {return true;}
+    }
+    */
 
     async run (message, args) {
         // Code goes here etc.

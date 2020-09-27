@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 const Discord = require('discord.js');
 const moment = require('moment-timezone');
-require('moment-duration-format');
+// require('moment-duration-format');
 const ownerid = require('../../config.json').OwnerId;
 
 module.exports = class UserInfoCommand extends Command {

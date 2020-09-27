@@ -20,9 +20,15 @@ module.exports = class EightballCommand extends Command {
         });
     }
 
+    hasPermission(message) {
+        let PermissionLevel = 0;
+        let msglevel = message.client.elevation(message);
+        return msglevel >= PermissionLevel;
+    }
+
     async run(message, { question }) {
 
-        let owner = message.guild.members.get(ownerid);
+        // let owner = message.guild.members.get(ownerid);
 
         var answer = {
             "0": "It is certain",

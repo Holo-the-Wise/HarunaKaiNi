@@ -3,7 +3,7 @@ const ms = require('ms');
 const Discord = require("discord.js");
 const silencedRole = require('../../config.json').silencedrole;
 const assets = require('../../assets/imageassets.json');
-const ownerid = require('../../config.json').OwnerId;
+const owners = require('../../config.json').OwnerId;
 
 module.exports = class MuteCommand extends Command {
     constructor (client) {
@@ -11,7 +11,7 @@ module.exports = class MuteCommand extends Command {
             name: 'mute',
             memberName: 'mute',
             group: 'admin',
-            description: 'Mutes or unmutes the mentionned user for a given length of time (WIP)',
+            description: 'Mutes the mentionned user for a given length of time (1 hour by default)',
             aliases: ['silence', 'stfu', 'shutup'],
             examples: ['mute @holo 60m'],
             format: 'mute [user] [time]',
@@ -29,7 +29,6 @@ module.exports = class MuteCommand extends Command {
                 }
             ],
             guildOnly: true,
-            ownerOnly: false
         })
     }
 
@@ -40,19 +39,18 @@ module.exports = class MuteCommand extends Command {
     }
 
     async run (message, {member, duration}) {
-
-        let owner = message.guild.members.get(ownerid);
         
         if(member.roles.find(x => x.name === silencedRole)){
             return message.say(`${member} is already muted.`);
         }
+        
         let silenced = message.guild.roles.find(u => u.name == silencedRole);
         if (!silenced) {
-            message.say(`Error: I cannot find the muted role`);
+            return message.say(`Error: I cannot find the muted role`);
         };
+
         let time = duration;
         
-
         member.roles.array().forEach(function(r) {
             member.removeRole(r)
         })
@@ -66,13 +64,29 @@ module.exports = class MuteCommand extends Command {
             .setColor('#ff0000')
             .setImage(assets["muted"])
         message.embed(embed);
-
+        
+        message.client.owners.forEach(owner => {
+            owner.send(`=======================================================\n` + 
+            `Guild Command Mute activated by ${message.author} (ID: ${message.author.id})\n` +
+            `Muted: ${member} for duration: ${ms(ms(time))}`);
+        });
        
-        // owner.send(`${member.displayName} muted by ${message.author.username} for ${ms(ms(time), { long: true })}`);
-
+        console.log(`=======================================================\n` + 
+        `Guild Command Mute activated by ${message.author} (ID: ${message.author.id})\n` +
+        `Muted: ${member} for duration: ${ms(ms(time))}`);
+        
+        // when mute duration is over
         message.client.muted[member.id] = setTimeout(() => {
             member.removeRole(silenced).then(message.say(`Lockdown lifted. ${member} has been unmuted.`)).catch(console.error);
-            owner.send(`${member.displayName} has been unmuted`);
+            
+            message.client.owners.forEach(owner => {
+                owner.send(`=======================================================\n` + 
+                `${member} has been unmuted`);
+            });
+
+            console.log(`=======================================================\n` + 
+            `${member} has been unmuted`);
+
             delete message.client.muted[member.id];
         }, ms(time));
 

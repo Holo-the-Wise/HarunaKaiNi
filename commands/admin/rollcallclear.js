@@ -1,22 +1,16 @@
 const { Command } = require('discord.js-commando');
 const rolecooldown = 1000 * 60 * 60 * 12;
-const ownerid = require('../../config.json').OwnerId;
+const owners = require('../../config.json').OwnerId;
 
 module.exports = class RollcallCommand extends Command {
     constructor (client) {
         super(client, {
-            name: 'rollcallclear', // Name of this command.
-            memberName: 'rollcallclear', // Name of this command.
-            group: 'admin', // The group the command belongs to, assigned upon registration.
-            description: 'Starts a rollcall for CB', // Short description of the command.
-            aliases: [ // Aliases for this command.
-                'cwclear',
-                'cwsclear'
-            ],
-            format: 'cwclear', // Usage format string of the command.
-            guarded: false, // Whether the command is protected from being disabled.
+            name: 'rollcallclear',
+            memberName: 'rollcallclear',
+            group: 'admin',
+            description: 'Clears a current rollcall',
+            aliases: [ 'cwclear','cwsclear','cbclear','cbsclear'] ,
             guildOnly: true, // Whether the command can only be run in a guild channel.
-            ownerOnly: false // Whether the command can only be used by an owner.
         })
     }
 
@@ -29,12 +23,15 @@ module.exports = class RollcallCommand extends Command {
 
     async run (message, args) {
 
-        let owner = message.guild.members.get(ownerid);
-
         let cwconfirmed = message.guild.roles.find(u => u.name == "CB Confirmed");
         let cwmemes = message.guild.roles.find(u => u.name == "Supreme Meme Stream Dream Team");
     
         if (!cwconfirmed) {
+            owners.forEach(owner => {
+                owneruser = message.client.users.cache.get(owner);
+                owneruser.send(`RollcallClear Command activated by ${message.author} (ID: ${message.author.id})\n
+                Error: no CB roles found`);
+            });
             return message.channel.send("Error no CB roles found");
         };
 
@@ -52,7 +49,11 @@ module.exports = class RollcallCommand extends Command {
             membersArray2[i].removeRole(cwmemes);
         }
         
-        message.channel.send(`Rollcall cleared`);
-        // owner.send(`Rollcall clear used by ${message.author}`);
+        owners.forEach(owner => {
+            owneruser = message.client.users.cache.get(owner);
+            owneruser.send(`RollcallClear Command activated by ${message.author} (ID: ${message.author.id})`);
+        });
+
+        return message.channel.send(`Rollcall cleared`);
     }
 };

@@ -1,7 +1,6 @@
 const { Command } = require('discord.js-commando')
 const Discord = require("discord.js");
-const ownerid = require('../../config.json').OwnerId;
-
+const owners = require('../../config.json').OwnerId;
 
 module.exports = class PurgeCommand extends Command {
     constructor (client) {
@@ -15,7 +14,7 @@ module.exports = class PurgeCommand extends Command {
             format: 'purge [amount] [user]',
             args: [
                 {
-                    key: 'number',
+                    key: 'deleteAmount',
                     prompt: 'How many messages do you want to delete?',
                     type: 'integer',
                     validate: number => {
@@ -32,7 +31,6 @@ module.exports = class PurgeCommand extends Command {
                 }
             ],
             guildOnly: true,
-            ownerOnly: false,
         })
     }
 
@@ -42,11 +40,7 @@ module.exports = class PurgeCommand extends Command {
         return msglevel >= PermissionLevel;
     }
 
-    async run (message, {number, member}) {
-
-        let owner = message.guild.members.get(ownerid);
-
-        let deleteAmount = number;
+    async run (message, {deleteAmount, member}) {
 
         if(member == ''){
             message.channel.fetchMessages({
@@ -57,9 +51,16 @@ module.exports = class PurgeCommand extends Command {
             message.channel.send(`Deleting last ${deleteAmount} messages...`).then(msg => {
                 msg.edit(`Successfully deleted ${deleteAmount} messages!`);
             });
+            
+            message.client.owners.forEach(owner => {
+                owner.send(`=======================================================\n` + 
+                `Guild Command Purge activated by ${message.author} (ID: ${message.author.id})\n` +
+                `Purged ${deleteAmount} messages by everyone in ${message.channel}`);
+            });
 
-            owner.send(`${deleteAmount} messages in ${message.channel.name} purged by ${message.author.username}`);
-
+            console.log(`=======================================================\n` + 
+            `Guild Command Purge activated by ${message.author} (ID: ${message.author.id})\n` +
+            `Purged ${deleteAmount} messages by everyone in ${message.channel}`);
         } else {
             message.channel.fetchMessages({}).then((messages) => {
                 let userMessages = messages.filter(m => m.author.id === member.id).array().slice(0, deleteAmount+1);
@@ -68,8 +69,16 @@ module.exports = class PurgeCommand extends Command {
             message.channel.send(`Deleting last ${deleteAmount} messages by user mentioned: ${member}`).then(msg => {
                 msg.edit(`Successfully deleted ${deleteAmount} messages by ${member}!`);
             });
+            
+            message.client.owners.forEach(owner => {
+                owner.send(`=======================================================\n` + 
+                `Guild Command Purge activated by ${message.author} (ID: ${message.author.id})\n` +
+                `Purged ${deleteAmount} messages by ${member} in ${message.channel}`);
+            });
 
-            // owner.send(`${deleteAmount} messages in ${message.channel.name} from ${member.displayName} purged by ${message.author.username}`);
+            console.log(`=======================================================\n` + 
+            `Guild Command Purge activated by ${message.author} (ID: ${message.author.id})\n` +
+            `Purged ${deleteAmount} messages by ${member} in ${message.channel}`);
         }
     }
 };
