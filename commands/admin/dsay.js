@@ -1,6 +1,5 @@
- const {Command} = require('discord.js-commando');
-const message = require('../../events/message');
-const generalChannelID = require("../../config.json").generalChannel;
+const {Command} = require('discord.js-commando');
+const logger = require('../../util/logging');
 
 module.exports = class MuteCommand extends Command {
     constructor(client) {
@@ -36,39 +35,11 @@ module.exports = class MuteCommand extends Command {
     async run(message, {textchannel, dsaytext}) {
 
         if(textchannel.type != 'text'){
-            return message.channel.send(`Destination channel must be a text channel`);
+            return message.channel.send(`Destination channel must be a text channel`).then(message.delete());
         } else {
-            //logging
-            message.client.owners.forEach(owner => {
-                owner.send(`=======================================================\n` + 
-                `Guild Command dsay activated by ${message.author} (ID: ${message.author.id})\n` +
-                `Channel: ${textchannel}. Text: ${dsaytext}`);
-            });
-    
-            console.log(`=======================================================\n` + 
-            `Guild Command CBList activated by ${message.author.username} (ID: ${message.author.id})\n` +
-            `Channel: ${textchannel}. Text: ${dsaytext}`);
-            return textchannel.send(dsaytext)
+            logger(message.client, `Dsay activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})\n` +
+            `Channel: ${textchannel} (${textchannel.name}). Text: ${dsaytext}`);
+            return textchannel.send(dsaytext).then(message.delete());
         }
-        
-        // if(textchannel){
-        //     console.log(`channel is ${textchannel} id: ${textchannel.id}`);
-        // } else if (this.client.guilds.first().channels.cache.find(channel => channel.name == textchannel)){
-
-        //     let dchannel = this.client.guilds.first().channels.cache.find(channel => channel.name == textchannel);
-        //     console.log(`textchannel is ${dchannel} id: ${dchannel.id}`);
-        // }
-        // logging
-        // message.client.owners.forEach(owner => {
-        //     owner.send(`=======================================================\n` + 
-        //     `Guild Command Dsay activated by ${message.author} (ID: ${message.author.id})` + 
-        //     `Channel Test: ${dsaytext}`);
-        // });
-
-        // console.log(`=======================================================\n` + 
-        // `Guild Command CBList activated by ${message.author.username} (ID: ${message.author.id})`);
-
-        // message.channel.send(textchannel);
-        // return message.say(dsaytext);
     }
 };

@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando')
-const owners = require('../../config.json').OwnerId;
+const logger = require('../../util/logging');
 
 module.exports = class SetStatusCommand extends Command {
     constructor (client) {
@@ -29,42 +29,28 @@ module.exports = class SetStatusCommand extends Command {
         })
     }
 
-
     async run (message, {statustype, statustext}) {
-
-
-
         if (statustype === "playing" || statustype === "game"){
-            message.client.user.setPresence({
-                game: {
-                    name: statustext
-                }
-            }).then().catch(console.error);
+            statustype = "PLAYING";
         } else if (statustype === "streaming" || statustype === "stream"){
-            message.client.user.setPresence({
-                game: {
-                    name: statustext,
-                    url: "https://www.twitch.tv/holo_thewise"
-                }
-            }).then().catch(console.error);
+            statustype = "STREAMING";
         } else if (statustype === "listen" || statustype === "listening"){
-            message.client.user.setPresence({
-                game: {
-                    name: statustext,
-                    type: "LISTENING"
-                }
-            }).then().catch(console.error);  
+            statustype = "LISTENING"; 
         } else if (statustype === "watch" || statustype === "watching"){
-            message.client.user.setPresence({
-                game: {
-                    name: statustext,
-                    type: "WATCHING"
-                }
-            }).then().catch(console.error);
+            statustype = "WATCHING";
         } else {
-            return message.say("Unrecognised status type. Please check help for details.");
+            return message.channel.send("Unrecognised status type. Please check help for details.");
         }
 
-        // owner.send(`${statustype} status changed to ${statustext} by ${message.author.username}`);
+        message.client.user.setPresence({ 
+            activity: {
+                name: statustext,
+                type: statustype,
+                url: "https://www.twitch.tv/holo_thewise"
+            }
+        });
+
+        logger(message.client, `Setstatus activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})\n` + 
+        `Status type: ${statustype} - Status text: ${statustext}`);
     }
 };

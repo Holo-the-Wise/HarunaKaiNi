@@ -1,8 +1,8 @@
 var moment = require('moment'); 
 
-module.exports = (message, string ) => {
+module.exports = (client, string ) => {
 
-    message.client.owners.forEach(owner => {
+    client.owners.forEach(owner => {
         owner.send(`========== ${moment().format('hh:mm a - ddd, Do MMM YYYY')} ==========\n` +
             `${string}`); 
     });

@@ -2,7 +2,7 @@ const { Command } = require('discord.js-commando');
 const Discord = require('discord.js');
 const quotes = require('../../assets/quotes.json');
 const allquotes = require('../../assets/allquotes.json');
-const ownerid = require('../../config.json').OwnerId;
+const logger = require('../../util/logging');
 
 module.exports = class QuoteCountCommand extends Command {
     constructor(client){
@@ -29,29 +29,26 @@ module.exports = class QuoteCountCommand extends Command {
         });
     }
 
-
     async run (message, {member}){
 
-        let owner = message.guild.members.get(ownerid);
-
-        
         if(!member){
             return message.say("No such user found");
-        }
-        let userToQuote = member.user;
-        let userId = userToQuote.id;
-        if(quotes[userId]){
-            let size = quotes[userId].length
-
-            // owner.send(`Quotecount of ${userToQuote.tag} (${userToQuote.id}) requested by ${message.author.tag} (${message.author.id}). Returned: ${size}`);
-            if(size == 1){
-                return message.say(`${userToQuote.tag} has ${size} quote`);
+        } else{
+            let userToQuote = member.user;
+            let userId = userToQuote.id;
+            if(quotes[userId]){
+                let size = quotes[userId].length
+                if(size == 1){
+                    message.say(`${userToQuote.tag} has ${size} quote`);
+                } else {
+                    message.say(`${userToQuote.tag} has ${size} quotes`)
+                }
             } else {
-                return message.say(`${userToQuote.tag} has ${size} quotes`)
+                message.say(`No quotes found for ${userToQuote.tag}`);
             }
-        } else {
-            // owner.send(`Quotecount of ${userToQuote.tag} (${userToQuote.id}) requested by ${message.author.tag} (${message.author.id}). Returned: none.`);
-            return message.say(`No quotes found for ${userToQuote.tag}`);
+            logger(message.client, `Quotecount activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})\n` +
+            `Requested quote count for: ${member} (${member.displayName} - ID: ${member.id})`);
+            return;
         }
     }
 };

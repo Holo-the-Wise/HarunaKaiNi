@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 const Discord = require('discord.js');
 const farmhash = require('farmhash');
-const ownerid = require('../../config.json').OwnerId;
+const logger = require('../../util/logging');
 
 module.exports = class EightballCommand extends Command {
     constructor(client) {
@@ -28,8 +28,6 @@ module.exports = class EightballCommand extends Command {
 
     async run(message, { question }) {
 
-        // let owner = message.guild.members.get(ownerid);
-
         var answer = {
             "0": "It is certain",
             "1": "It is decidedly so",
@@ -53,10 +51,12 @@ module.exports = class EightballCommand extends Command {
             "19": "Very doubtful"
         }
 
-
         let hash = farmhash.hash32(question);
         let response = hash % 20;
-        // owner.send(`8ball question from ${message.author.tag} (${message.author.id}): ${question}`);
+
+        logger(message.client, `8ball activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})\n` +
+        `Question: ${question}`);
+
         return message.say(answer[response.toString()]);
     }
 };

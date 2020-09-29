@@ -2,7 +2,7 @@ const { Command } = require('discord.js-commando');
 const Discord = require('discord.js');
 const quotes = require('../../assets/quotes.json');
 const allquotes = require('../../assets/allquotes.json');
-const ownerid = require('../../config.json').OwnerId;
+const logger = require('../../util/logging');
 
 module.exports = class QuoteCommand extends Command {
     constructor(client){
@@ -28,15 +28,13 @@ module.exports = class QuoteCommand extends Command {
 
     async run (message, {member}){
 
-        let owner = message.guild.members.get(ownerid);
-        
         if (!member) {
             let size = allquotes.length;
             let quoteNumber = Math.floor((Math.random() * size));
             message.channel.send(`${allquotes[quoteNumber]}`);
 
-            owner.send(`Random quote requested from ${message.author.tag} (${message.author.id})`);
-
+            logger(message.client, `Quote activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})\n` +
+            `Returned random quote from all`);
         } else {
             let userToQuote = member.user;
             let userId = userToQuote.id;
@@ -45,7 +43,8 @@ module.exports = class QuoteCommand extends Command {
                 let quoteNumber = Math.floor((Math.random() * size));
                 message.say(`${quotes[userId][quoteNumber]}`);
 
-                // owner.send(`Quotes from ${userToQuote.tag} (${userToQuote.id}) requested from ${message.author.tag} (${message.author.id})`);
+                logger(message.client, `Quote activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})\n` +
+                `Returned random quote from ${member} (${member.displayName} - ID: ${member.id})`);
             } else {
                 return message.say(`No quotes found for ${userToQuote.tag}`);
             }

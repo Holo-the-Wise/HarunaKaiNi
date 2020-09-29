@@ -1,13 +1,13 @@
 const { Command } = require('discord.js-commando')
 const silencedRole = require('../../config.json').silencedrole;
-const owners = require('../../config.json').OwnerId;
+const logger = require('../../util/logging');
 
 module.exports = class UnmuteCommand extends Command {
     constructor (client) {
         super(client, {
             name: 'unmute',
             memberName: 'unmute',
-            group: 'admin',
+            group: 'moderation',
             description: 'Unmutes the mentionned user',
             aliases: ['release'],
             examples: ['unmute @holo'],
@@ -32,8 +32,6 @@ module.exports = class UnmuteCommand extends Command {
 
     async run (message, {member}) {
 
-        let owner = message.guild.members.get(ownerid);
-        
         if(!member.roles.find(x => x.name === silencedRole)){
             return message.say(`${member} isn't muted.`);
         }
@@ -47,6 +45,7 @@ module.exports = class UnmuteCommand extends Command {
             console.log(error);
           });
 
-        // owner.send(`${member.displayName} unmuted by ${message.author.username}`);
+        logger(message.client, `Unmute activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})` +
+        `${member} (${member.displayName} - ID: ${member.id}) has been unmuted.`);
     }
 };

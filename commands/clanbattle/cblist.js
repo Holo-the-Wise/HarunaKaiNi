@@ -6,7 +6,7 @@ module.exports = class CBListCommand extends Command {
         super(client, {
             name: 'cblist', 
             memberName: 'cblist', 
-            group: 'admin', 
+            group: 'clanbattle', 
             description: 'Shows list of all CB players who have responded to rollcall',
             aliases: ['cbwho', 'cwlist'],
             guildOnly: true,
@@ -21,16 +21,8 @@ module.exports = class CBListCommand extends Command {
 
     async run (message) {
         
-        // logging
-        logger();
-        // message.client.owners.forEach(owner => {
-        //     owner.send(`=======================================================\n` + 
-        //     `Guild Command CBList activated by ${message.author} (ID: ${message.author.id})`);
-        // });
-
-        // console.log(`=======================================================\n` + 
-        // `Guild Command CBList activated by ${message.author.username} (ID: ${message.author.id})`);
-
+        logger(message.client, `Command CBList activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})\n`);
+    
         let cwconfirmed = message.guild.roles.cache.find(u => u.name == "CB Confirmed");
   
         let msg = "";

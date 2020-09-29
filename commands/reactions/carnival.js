@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 const Discord = require("discord.js");
 const assets = require('../../assets/imageassets.json');
-const ownerid = require('../../config.json').OwnerId;
+const logger = require('../../util/logging');
 
 module.exports = class CarnivalCommand extends Command {
     constructor(client) {
@@ -15,15 +15,17 @@ module.exports = class CarnivalCommand extends Command {
         });
     }
 
-    async run (message, args) {
+    async run (message) {
+        
+        logger(message.client, `Carnival activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`);
 
-        let owner = message.guild.members.get(ownerid);
-        
-        const embed = new Discord.RichEmbed()
+        const embed = new Discord.MessageEmbed()
             .setImage(assets["carnival"])
-            .setColor(15750656)
-        
-        // owner.send(`Carnival command activated by ${message.author.tag} (${message.author.id})`);
-        return message.embed(embed).then(message.delete());
+            .setColor(15750656)         
+        if(message.channel.type == 'dm'){
+            return message.channel.send(embed);
+        } else {
+            return message.channel.send(embed).then(message.delete());
+        }
     }
 };

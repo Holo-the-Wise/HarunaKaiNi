@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 const Discord = require("discord.js");
 const assets = require('../../assets/imageassets.json');
-const ownerid = require('../../config.json').OwnerId;
+const logger = require('../../util/logging');
 
 module.exports = class TriggeredlCommand extends Command {
     constructor(client) {
@@ -16,16 +16,18 @@ module.exports = class TriggeredlCommand extends Command {
 
     async run (message, args) {
 
-        let owner = message.guild.members.get(ownerid);
-        
+        logger(message.client, `Triggered activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`);
+
         let size = assets["triggered"].length;
         let randNumber = Math.floor((Math.random() * size));
       
-        const embed = new Discord.RichEmbed()
+        const embed = new Discord.MessageEmbed()
             .setImage(assets["triggered"][randNumber])
             .setColor(0xFFFFFF)
-
-        // owner.send(`Triggered command activated by ${message.author.tag} (${message.author.id})`);
-        return message.embed(embed).then(message.delete());
+        if(message.channel.type == 'dm'){
+            return message.channel.send(embed);
+        } else {
+            return message.channel.send(embed).then(message.delete());
+        }
     }
 };

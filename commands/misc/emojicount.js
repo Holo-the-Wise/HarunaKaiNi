@@ -1,6 +1,6 @@
 const { Command } = require('discord.js-commando');
 const Discord = require("discord.js");
-const ownerid = require('../../config.json').OwnerId;
+const logger = require('../../util/logging');
 
 module.exports = class EmojiCount extends Command {
     constructor(client) {
@@ -19,15 +19,12 @@ module.exports = class EmojiCount extends Command {
                 default: 'clan'
             }],
             guildOnly: true,
-            ownerOnly:true
+            ownerOnly: true
         })
     }
 
     async run(message, args) {
 
-        // let owner = message.guild.members.get(ownerid);
-    //     if(args.member == "clan"){
-    //         console.log("using clan")
-    //     }
+    return message.channel.send(`WIP: Stay tuned!`);
     }
 };

@@ -3,13 +3,10 @@ const capChannelID = require("../config.json").capChannel;
 let welcome = require('../assets/welcome.json');
 const silencedRole = require('../config.json').silencedrole;
 const Discord = require("discord.js");
-// const MessageAttachment = require('discord.js');
 const Canvas = require('canvas');
-const ownerid = require('../config.json').OwnerId;
+const logger = require('../util/logging');
 
 module.exports = async (client, member) => {
-
-    let owner = member.guild.members.cache.get(ownerid);
 
     let guild = member.guild;
     let generalChannel = guild.channels.cache.find(u => u.id == generalChannelID);
@@ -17,18 +14,20 @@ module.exports = async (client, member) => {
     console.log(`${member.user.username} has joined ${guild}`);
 
     if (client.muted[member.id]) {
-        let silenced = guild.roles.find(u => u.name == silencedRole);
-        generalChannel.send(`Welcome back ${member.user}, you're still muted`);
-        capChannel.send(`${member.user} has rejoined the server, still muted!`);
+        let silenced = guild.roles.cache.find(u => u.name == silencedRole);
         member.addRole(silenced);
-        return owner.send(`${member.user.username} has joined the server, still muted`);
+
+        logger(client, `A new member has joined FISH n CHIPS\n` + 
+        `Username: ${member.user.tag} - ID: ${member.user.id}. **Returned while muted**`);
+
+        generalChannel.send(`Welcome back ${member.user}, you're still muted`);
+        return capChannel.send(`${member.user} has rejoined the server, still muted!`);
     } else {
 
         let size = welcome.length;
         let randNumber = Math.floor((Math.random() * size));
         let welcomeMsg = welcome[randNumber];
         let finalWelcome = welcomeMsg.replace("xxx", member.user);
-
 
         const canvas = Canvas.createCanvas(850, 500);
         const ctx = canvas.getContext('2d');
@@ -72,9 +71,11 @@ module.exports = async (client, member) => {
         
         ctx.drawImage(avatar, 135, 313, 185, 185);
         const attachment = new Discord.MessageAttachment(canvas.toBuffer());
-        generalChannel.send(finalWelcome, attachment);
-        capChannel.send(`${member.user} has joined the server, welcome!`);
+        
+        logger(client, `A new member has joined FISH n CHIPS\n` + 
+        `Username: ${member.user.tag} - ID: ${member.user.id}`);
 
-        return owner.send(`${member.user.tag} has joined the server`);
+        generalChannel.send(finalWelcome, attachment);
+        return capChannel.send(`${member.user} has joined the server, welcome!`);
     }
 };

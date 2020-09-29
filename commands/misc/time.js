@@ -1,6 +1,6 @@
 const { Command } = require('discord.js-commando');
 let moment = require('moment-timezone');
-const ownerid = require('../../config.json').OwnerId;
+const logger = require('../../util/logging');
 
 module.exports = class TimeCommand extends Command {
     constructor (client) {
@@ -21,17 +21,11 @@ module.exports = class TimeCommand extends Command {
                     default: ''
                 }
             ],
-            guarded: false,
-            guildOnly: false,
-            ownerOnly: false
         })
     }
 
-
     async run (message, {time}) {
 
-        let owner = message.guild.members.get(ownerid);    
-    
         let timeformat;
         if(time){
             timeformat = moment(time, ["hmm", "HH:mm", "hmma", "HH:mma"]);
@@ -50,7 +44,7 @@ module.exports = class TimeCommand extends Command {
         let timeNZ = timeformat.tz("Pacific/Auckland").format('HH:mm');
         let timeJP = timeformat.tz("Asia/Tokyo").format('HH:mm');
 
-        // owner.send(`Timezone: ${time} requested by ${message.author.tag} (${message.author.id})`);
+        logger(message.client, `Time activated by ${message.author} (${message.author.tag} - ID: ${message.author.id}`);
         
         return message.channel.send(
             `\n\n${timeINDIA} in India\n` +

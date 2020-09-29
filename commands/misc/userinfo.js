@@ -1,8 +1,7 @@
 const { Command } = require('discord.js-commando');
 const Discord = require('discord.js');
 const moment = require('moment-timezone');
-// require('moment-duration-format');
-const ownerid = require('../../config.json').OwnerId;
+const logger = require('../../util/logging');
 
 module.exports = class UserInfoCommand extends Command {
     constructor(client){
@@ -11,12 +10,12 @@ module.exports = class UserInfoCommand extends Command {
             memberName: 'userinfo',
             group: 'misc',
             description: 'Display info about user',
-            aliases: ['memberinfo'],
+            aliases: ['memberinfo', 'user', 'member'],
             examples: ['userinfo'],
             args: [
                 {
-                    key: 'user',
-                    prompt: 'What user would you like to lookup?',
+                    key: 'member',
+                    prompt: 'What member would you like to lookup?',
                     type: 'member',
                     default: ''
                 }
@@ -34,44 +33,20 @@ module.exports = class UserInfoCommand extends Command {
         else {return true;}
     }
 
-    async run (message, args){
+    async run (message, {member} ){
 
-        let owner = message.guild.members.get(ownerid);
+        if (member === '') {
+            member = message.member;
+        }        
 
-        let user;
-        if (args.user === '') {
-            args.user = message.guild.members.get(message.author.id)
-            user = args.user.user
-        } else {
-            user = args.user.user
-        }
-        
+        let memberStatus = '';
+        if (member.presence.activities[0] != null) {
+            memberStatus = `${member.presence.activities[0].type}: ${member.presence.activities[0].name}${member.presence.activities[0].details ? ` - **${member.presence.activities[0].details}**` : ""}`;
+        } 
 
-        let userColor = (args.user).displayHexColor;
-        if (userColor === '#000000') {
-            userColor = 0x7289DA
-        } else {
-            userColor = Number(userColor.replace('#', '0x'))
-        }
-
-        let userStatus = '';
-        if (user.presence.game !== null) {
-            if (user.presence.game.type === 0) {
-                userStatus = `Playing **${(user.presence.game.name)}**`
-            } else if (user.presence.game.type === 1) {
-                userStatus = `Streaming **${(user.presence.game.name)}**`
-            } else if (user.presence.game.type === 2) {
-                userStatus = `Listening to **${(user.presence.game.name)}**`
-            } else if (user.presence.game.type === 3) {
-                userStatus = `Watching **${(user.presence.game.name)}**`
-            }
-            if (user.presence.game.url !== null) { userStatus = `[${userStatus}](${user.presence.game.url})` }
-        }
-        
-        
-        let userRoles;
-        if (args.user.roles.size > 1) {
-            let rolesArray = args.user.roles.array();
+        let userRoles = '';
+        if (member.roles.cache.size > 1) {
+            let rolesArray = member.roles.cache.array();
             let rolesString = '';
             for (let i = 0; i < rolesArray.length; i++){
                 if(rolesArray[i].name != '@everyone'){
@@ -83,35 +58,47 @@ module.exports = class UserInfoCommand extends Command {
         } else {
             userRoles = 'N/A';
         }
+        console.log(`roles: ${userRoles}`);
         
-    
-
-        const embed = new Discord.RichEmbed()
-            .setAuthor(`${message.client.user.tag}`, `${message.client.user.displayAvatarURL}`)
-            .setFooter(`${message.author.tag}`, `${message.author.displayAvatarURL}`)
+        const embed = new Discord.MessageEmbed()
+            .setAuthor(`${message.client.user.tag}`, `${message.client.user.displayAvatarURL({dynamic: true})}`)
+            .setFooter(`${message.author.tag}`, `${message.author.displayAvatarURL({dynamic: true})}`)
             .setTimestamp(new Date())
-            .setTitle(`Information for ${(user.tag)}${user.bot === true ? ' **[BOT]**' : ''}`)
-            .setThumbnail(`${user.displayAvatarURL}`)
-            .setDescription(userStatus)
-            .addField('Identity', `
-                **Tag:** ${(user.tag)}
-                **ID:** ${user.id}
-                **Status:** ${user.presence.status}`,
-                true)
-            .addField(`Account Created - (${moment(user.createdAt).fromNow()})`,`
-                **Date:** ${moment(user.createdAt).format('L')}
-                **Time:** ${moment(user.createdAt).format('LTS')} ${moment.tz(moment.tz.guess()).format('z')}`,
-                true)
-            .addField(`Joined Guild - (${moment(args.user.joinedAt).fromNow()})`,`
-                **Date:** ${moment(args.user.joinedAt).format('L')}
-                **Time:** ${moment(args.user.joinedAt).format('LTS')} ${moment.tz(moment.tz.guess()).format('z')}`,
-                true)
-            .addField(`Roles - (${args.user.roles.size > 0 ? args.user.roles.size.toLocaleString() - 1 : 0})`,`
+            .setTitle(`Information for ${(member.user.tag)}${member.user.bot === true ? ' **[BOT]**' : ''}`)
+            .setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
+            .setDescription(member.roles.cache.hoist || 'Online')
+            .setColor(member.displayHexColor)
+            .addField(
+                `__**Identity**__`,
+                `**Tag**: ${member.user.tag}\nID: ${member.user.id}\n`,
+                true
+            )
+            if (memberStatus != ''){
+                embed.addField(
+                    `__**Status**__`,
+                    `${memberStatus} \n`,
+                    true
+                )
+            }
+            embed.addField(
+                `__**Account Created - (${moment(member.user.createdAt).fromNow()})**__`,
+                `**Date:** ${moment(member.user.createdAt).format('L')}\n` +
+                `**Time:** ${moment(member.user.createdAt).format('LTS')}\n`,
+            )
+            .addField(
+                `__**Joined Guild - (${moment(member.joinedAt).fromNow()})**__`,
+                `**Date:** ${moment(member.joinedAt).format('L')}\n` +
+                `**Time:** ${moment(member.joinedAt).format('LTS')}\n`,
+            )
+            .addField(
+                `Roles - (${member.roles.cache.size > 0 ? member.roles.cache.size.toLocaleString() - 1 : 0})`,`
                 ${userRoles}`,
-                false)
-            .setColor(userColor)
-
-        // owner.send(`Userinfo for ${user.tag} (${user.id}) requested by ${message.author.tag} (${message.author.id})`);
-        return message.embed(embed);
+                false
+            )
+            
+        logger(message.client, `Userinfo activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})\n` +
+        `Requested info for: ${member} (${member.user.tag} - ID: ${member.user.id})`);
+        
+        return message.channel.send(embed);
     }
 };

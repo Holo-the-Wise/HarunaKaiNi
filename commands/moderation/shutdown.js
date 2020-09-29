@@ -1,12 +1,12 @@
 const { Command } = require('discord.js-commando');
-const owners = require('../../config.json').OwnerId;
+const logger = require('../../util/logging');
 
 module.exports = class ShutdownCommand extends Command {
     constructor (client) {
         super(client, {
             name: 'shutdown',
             memberName: 'shutdown',
-            group: 'admin',
+            group: 'moderation',
             description: 'Shuts down the bot',
             examples: ['shutdown'],
             guildOnly: false,
@@ -22,10 +22,9 @@ module.exports = class ShutdownCommand extends Command {
 
     async run (message, args) {
 
-        let owner = message.guild.members.get(ownerid);
         message.channel.send("Shutting down, Goodbye :wave:");
 
-        // const messaged = await owner.send(`Haruna K2 shutdown by ${message.author.tag}`);
+        logger(message.client, `Shutdown activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`);
         return messaged.client.destroy();
     }
 };

@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 const Discord = require("discord.js");
 const assets = require('../../assets/imageassets.json');
-const ownerid = require('../../config.json').OwnerId;
+const logger = require('../../util/logging');
 
 module.exports = class ThumbsupCommand extends Command {
     constructor(client) {
@@ -16,13 +16,15 @@ module.exports = class ThumbsupCommand extends Command {
 
     async run (message, args) {
 
-        let owner = message.guild.members.get(ownerid);
-        
-        const embed = new Discord.RichEmbed()
+        logger(message.client, `Thumbsup activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`);
+
+        const embed = new Discord.MessageEmbed()
             .setImage(assets["thumbsup"])
             .setColor(0x00FFFF)
-
-        // owner.send(`Thumbs up command activated by ${message.author.tag} (${message.author.id})`);
-        return message.embed(embed).then(message.delete());
+        if(message.channel.type == 'dm'){
+            return message.channel.send(embed);
+        } else {
+            return message.channel.send(embed).then(message.delete());
+        }    
     }
 };

@@ -1,13 +1,13 @@
 const { Command } = require('discord.js-commando');
-const rolecooldown = 1000 * 60 * 60 * 12;//cooldown, after this time the roles are reset 1000 * secs * mins* hours
-const owners = require('../../config.json').OwnerId;
+const rolecooldown = 1000 * 60 * 60 * 12;//cooldown, after this time the roles are reset: 1000 * secs * mins* hours
+const logger = require('../../util/logging');
 
 module.exports = class RollcallCommand extends Command {
     constructor (client) {
         super(client, {
             name: 'rollcall', 
             memberName: 'rollcall', 
-            group: 'admin', 
+            group: 'clanbattle', 
             description: 'Starts a rollcall for CB', 
             aliases: [ 'cw', 'cws', 'cb', 'cbs', 'cbrollcall', 'cwrollcall' ],
             guildOnly: true
@@ -28,25 +28,15 @@ module.exports = class RollcallCommand extends Command {
         let fishrole = message.guild.roles.cache.find(u => u.name == "FISH");
 
         if (!cwconfirmed && !cwmemes) {
-            owners.forEach(owner => {
-                owneruser = message.client.users.cache.get(owner);
-                owneruser.send(`Rollcall Command activated by ${message.author} (ID: ${message.author.id})\n
-                Error: no CB roles found`);
-            });
             return message.channel.send("Error no CB roles found");
         };
     
         if (message.client.rollcallActive) {
-            owners.forEach(owner => {
-                owneruser = message.client.users.cache.get(owner);
-                owneruser.send(`Rollcall Command activated by ${message.author} (ID: ${message.author.id})\n
-                Error: Rollcall already active`);
-            });
             return message.channel.send("A CW rolecall is already active for tonight.");
         }
-        const hawoo = message.guild.emojis.find(emoji => emoji.name === "hawoo");
-        const cheer = message.guild.emojis.find(emoji => emoji.name === "a_nekocheer");
-        const ramspin = message.guild.emojis.find(emoji => emoji.name === "a_RamSpin");
+        const hawoo = message.guild.emojis.cache.find(emoji => emoji.name === "hawoo");
+        const cheer = message.guild.emojis.cache.find(emoji => emoji.name === "a_nekocheer");
+        const ramspin = message.guild.emojis.cache.find(emoji => emoji.name === "a_RamSpin");
 
         message.channel.send(`Ahoy ${fishrole}, Haruna desu!  Please react ${hawoo} if you are available for Clan Battles tonight! If you just want to meme please react ${ramspin}. \n Good luck and have fun! ${cheer}`).then(msg => {
             message.delete();
@@ -55,11 +45,8 @@ module.exports = class RollcallCommand extends Command {
             message.client.rollcallMsgId = msg.id;
             message.client.rollcallActive = true;
             
-            owners.forEach(owner => {
-                owneruser = message.client.users.cache.get(owner);
-                owneruser.send(`Rollcall Command activated by ${message.author} (ID: ${message.author.id})`);
-            });
-                
+            logger(message.client, `Command Rollcall activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`)
+            
             setTimeout(function () {
                 let membersArray = cwconfirmed.members.array();
                 for (var i = 0; i < membersArray.length; i++) {
@@ -75,10 +62,7 @@ module.exports = class RollcallCommand extends Command {
                 message.client.rollcallActive = false;
                 msg.delete();
 
-                owners.forEach(owner => {
-                    owneruser = message.client.users.cache.get(owner);
-                    owneruser.send(`Rollcall rolls clearly normally`);
-                });
+                logger(message.client, `Rollcall cleared normally`)
             }, rolecooldown);
 
         }).catch(console.error);

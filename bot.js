@@ -13,7 +13,8 @@ const fs = require('fs');
 
 
 /* Trackers - used to track various bot states etc */
-client.emojinotifs = true;
+client.emojiNotifsGeneral = true;
+client.emojiNotifsCaptains = true;
 
 client.rollcallActive = false;
 client.rollcallMsgId = 0;
@@ -26,8 +27,10 @@ client.registry
     .registerDefaultTypes()
     .registerGroups([
         ['reactions', 'ImageReactions'],
+        ['moderation', 'Moderation'],
         ['admin', 'Admin'],
-        ['misc', 'Misc']
+        ['misc', 'Misc'],
+        ['clanbattle', 'ClanBattles']
     ])
     .registerDefaultGroups()
     .registerDefaultCommands({ 
