@@ -24,15 +24,6 @@ module.exports = class UserInfoCommand extends Command {
         });
     }
 
-    hasPermission(message) {
-        if(message.channel.type == "text"){
-        let PermissionLevel = 0;
-        let msglevel = message.client.elevation(message);
-        return msglevel >= PermissionLevel;
-        }
-        else {return true;}
-    }
-
     async run (message, {member} ){
 
         if (member === '') {

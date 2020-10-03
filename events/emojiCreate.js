@@ -2,6 +2,7 @@ const clanChannelID = require("../config.json").clanChannel;
 const capChannelID = require("../config.json").capChannel;
 const Discord = require("discord.js");
 const logger = require('../util/logging');
+const Canvas = require('canvas');
 
 module.exports = async (client, emoji) => {
 

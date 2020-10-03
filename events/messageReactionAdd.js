@@ -1,6 +1,3 @@
-const Discord = require('discord.js');
-const ownerid = require('../config.json').OwnerId;
-
 module.exports = async (client, messageReaction, user) => {
 
     if (messageReaction.message.channel.type == 'dm'){
@@ -18,10 +15,10 @@ module.exports = async (client, messageReaction, user) => {
         if(client.rollcallActive && messageReaction.message.id == client.rollcallMsgId){
             if(messageReaction.emoji === hawoo){
                 let target = messageReaction.message.guild.members.cache.find(u => u.id == user.id);
-                target.addRole(cwconfirmed);
+                target.roles.add(cwconfirmed);
             } else if (messageReaction.emoji === ramspin){
                 let target = messageReaction.message.guild.members.cache.find(u => u.id == user.id);
-                target.addRole(cwmemes);
+                target.roles.add(cwmemes);
             }
         }
     return;

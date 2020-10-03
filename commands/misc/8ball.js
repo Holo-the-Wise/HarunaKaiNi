@@ -20,12 +20,6 @@ module.exports = class EightballCommand extends Command {
         });
     }
 
-    hasPermission(message) {
-        let PermissionLevel = 0;
-        let msglevel = message.client.elevation(message);
-        return msglevel >= PermissionLevel;
-    }
-
     async run(message, { question }) {
 
         var answer = {

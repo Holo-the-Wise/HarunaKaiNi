@@ -18,7 +18,7 @@ client.emojiNotifsCaptains = true;
 
 client.rollcallActive = false;
 client.rollcallMsgId = 0;
-// client.owneruser = client.owner;
+
 client.muted = []; //muted users are here
 
 
@@ -38,6 +38,7 @@ client.registry
     })
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
+
 client.elevation = message => {
     /* This function should resolve to an ELEVATION level which
        is then sent to the command handler for verification*/
@@ -55,7 +56,7 @@ client.elevation = message => {
     let admin2role = message.guild.roles.cache.find(x => x.name === "Admirals of The Fleet");
     if (admin2role && message.member.roles.cache.has(admin2role.id)) permlvl = 3;
     
-    if (client.owners.includes(message.author.id)) permlvl = 4;
+    if (client.isOwner(message.author)) permlvl = 4;
     
     return permlvl;
 };

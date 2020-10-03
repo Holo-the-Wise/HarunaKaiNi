@@ -22,8 +22,8 @@ module.exports = class RollcallClearCommand extends Command {
 
     async run (message, args) {
 
-        let cwconfirmed = message.guild.roles.find(u => u.name == "CB Confirmed");
-        let cwmemes = message.guild.roles.find(u => u.name == "Supreme Meme Stream Dream Team");
+        let cwconfirmed = message.guild.roles.cache.find(u => u.name == "CB Confirmed");
+        let cwmemes = message.guild.roles.cache.find(u => u.name == "Supreme Meme Stream Dream Team");
     
         if (!cwconfirmed) {
             return message.channel.send("Error no CB roles found");
@@ -35,12 +35,12 @@ module.exports = class RollcallClearCommand extends Command {
 
         let membersArray = cwconfirmed.members.array();
         for(var i = 0; i < membersArray.length; i++){
-            membersArray[i].removeRole(cwconfirmed);
+            membersArray[i].roles.remove(cwconfirmed);
         }
         
         let membersArray2 = cwmemes.members.array();
         for (var i = 0; i < membersArray2.length; i++) {
-            membersArray2[i].removeRole(cwmemes);
+            membersArray2[i].roles.remove(cwmemes);
         }
         
         logger(message.client, `Command RollcallClear activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`)
