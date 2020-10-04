@@ -7,10 +7,9 @@ module.exports = class MuteCommand extends Command {
             name: 'dsay',
             memberName: 'dsay',
             group: 'admin',
-            description: 'Haruna will talk in the mentioned channel, default if no channel is mentioned',
-            aliases: [],
-            examples: ['dsay2 [channel] [message]'],
-            format: 'dsay2 [channel] [message]',
+            description: 'Haruna will talk in the mentioned channel. Server only command',
+            format: '[channel] [message]',
+            examples: ['dsay2 #general hello there'],
             args: [{
                 key: 'textchannel',
                 prompt: 'Please enter a channel',
@@ -21,8 +20,8 @@ module.exports = class MuteCommand extends Command {
                 prompt: 'Please type a message',
                 type: 'string',
             }],
+            defaultHandling: false,
             guildOnly: true,
-            ownerOnly: false
         })
     }
 

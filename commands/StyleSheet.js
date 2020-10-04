@@ -18,32 +18,31 @@ module.exports = class StyleSheetCommand extends Command {
                 'SheetStyle',
                 'CommandExample'
             ],
+            format: '[Test/Testing/Testing123]', // Usage format string of the command.
             examples: [ // Example usage strings.
                 'StyleSheet This is not a command.',
                 'StyleSheet There are arguments.',
                 'StyleSheet This is just an example.'
             ],
-            userPermissions: [ // Permissions required by the user to use the command.
-                'SEND_MESSAGES',
-                'VIEW_CHANNEL'
-            ],
-            clientPermissions: [ // Permissions required by the client to use the command.
-                'SEND_MESSAGES',
-                'VIEW_CHANNEL'
-            ],
-            throttling: { // Options for throttling command usages.
-                usages: 2,
-                duration: 10
-            },
-            format: '[Test/Testing/Testing123]', // Usage format string of the command.
             args: [ // Go here for argument help: http://discord.js.org/#/docs/commando/master/class/Argument
                 {
                     key: 'message',
                     label: 'text',
                     prompt: 'What text would you like to provide?',
-                    type: 'string'
+                    type: 'string',
+                    max: 2,
+                    min: 1,
+                    oneOf: [''] //An array of values that are allowed to be used
                 }
             ],
+            argsPromptLimit: 2,  //Maximum number of times to prompt a user for a single argument. 
+                                //Only applicable if args is specified.
+            throttling: {
+                usages: 'INT',//Maximum number of usages of the command allowed in the time frame.
+                duration: 'INT'//Amount of time to count the usages of the command within (in seconds).
+            },
+            defaultHandling: true,   //Whether or not the default command handling should be used. If false, 
+                                    //then only patterns will trigger the command.
             guarded: false, // Whether the command is protected from being disabled.
             guildOnly: false, // Whether the command can only be run in a guild channel.
             ownerOnly: false // Whether the command can only be used by an owner.

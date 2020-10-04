@@ -8,9 +8,8 @@ module.exports = class StatusClearCommand extends Command {
             memberName: 'statusclear',
             group: 'admin',
             description: 'Clears bots status',
-            examples: ['statusclear'],
             format: 'statusclear',
-            guildOnly: false,
+            guarded: false,
             ownerOnly: true
         })
     }

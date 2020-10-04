@@ -10,13 +10,14 @@ module.exports = class SetStatusCommand extends Command {
             description: 'set bots status check details for accepted argument types',
             details: `arg types: 'playing', 'game', 'listen', 'listening', 'watch', 'watching', 'streaming', 'stream'`,
             aliases: ['status', 'presence'],
+            format: '[type] [game/music/stream title]',
             examples: ['setstatus playing WoWs', 'setstatus listening mimorin','setstatus watching fubuki', 'setstatus streaming WoWs'],
-            format: '[setstatus [type] [game/music/stream]',
             args: [
                 {
                     key: 'statustype',
                     prompt: 'Please provide the status type. (Playing/Listening/Watching/Streaming)',
-                    type: 'string'
+                    type: 'string',
+                    oneOf: ['playing','game','streaming','stream','listen','listening','watch','watching']
                 },
                 {
                     key: 'statustext',
@@ -24,8 +25,8 @@ module.exports = class SetStatusCommand extends Command {
                     type: 'string'
                 }
             ],
-            guildOnly: false,
-            ownerOnly: true
+            ownerOnly: true,
+            guarded: true
         })
     }
 

@@ -28,7 +28,7 @@ module.exports = class RollcallCommand extends Command {
 
     async run (message, args) {
 
-        /* DONT TOUCH */ 
+        /* DONT TOUCH */
         let cwconfirmed = message.guild.roles.cache.find(u => u.name == "CB Confirmed");
         let cwmemes = message.guild.roles.cache.find(u => u.name == "Supreme Meme Stream Dream Team");
         let fishrole = message.guild.roles.cache.find(u => u.name == "FISH");
@@ -43,7 +43,6 @@ module.exports = class RollcallCommand extends Command {
         const hawoo = message.guild.emojis.cache.find(emoji => emoji.name === "hawoo");
         const cheer = message.guild.emojis.cache.find(emoji => emoji.name === "a_nekocheer");
         const ramspin = message.guild.emojis.cache.find(emoji => emoji.name === "a_RamSpin");
-            
 
         //canvas start
 
@@ -76,7 +75,6 @@ module.exports = class RollcallCommand extends Command {
         // ctx.rect(30, 15, 100, 140);
         // ctx.stroke();
 
-
         let size = phrases.length;
         let randNum = Math.floor((Math.random() * size));
         let thisPhrase = phrases[randNum];
@@ -103,7 +101,7 @@ module.exports = class RollcallCommand extends Command {
         // message.channel.send('test rollcall', attachment);
         // }
               
-        /* DONT TOUCH */ 
+        /* DONT TOUCH */
         message.channel.send(`Ahoy ${fishrole}, Haruna desu!  Please react ${hawoo} if you are available for Clan Battles tonight! If you just want to meme please react ${ramspin}. \n Good luck and have fun! ${cheer}`, attachment).then(msg => {
             message.delete();
             msg.react(hawoo.id);
@@ -130,7 +128,6 @@ module.exports = class RollcallCommand extends Command {
 
                 logger(message.client, `Rollcall cleared normally`)
             }, rolecooldown);
-
         }).catch(console.error);
     }
 };
