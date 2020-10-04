@@ -32,12 +32,12 @@ module.exports = class UnmuteCommand extends Command {
 
     async run (message, {member}) {
 
-        if(!member.roles.find(x => x.name === silencedRole)){
+        if(!member.roles.cache.find(x => x.name === silencedRole)){
             return message.say(`${member} isn't muted.`);
         }
-        let silenced = message.guild.roles.find(u => u.name == silencedRole);
+        let silenced = message.guild.roles.cache.find(u => u.name == silencedRole);
 
-        member.removeRole(silenced).then(() => {
+        member.roles.remove(silenced).then(() => {
             message.channel.send(`${member} has been unmuted`);
             clearTimeout(message.client.muted[member.id]);
             delete message.client.muted[member.id];
@@ -45,7 +45,7 @@ module.exports = class UnmuteCommand extends Command {
             console.log(error);
           });
 
-        logger(message.client, `Unmute activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})` +
+        logger(message.client, `Unmute activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})\n` +
         `${member} (${member.displayName} - ID: ${member.id}) has been unmuted.`);
     }
 };

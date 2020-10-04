@@ -38,7 +38,6 @@ module.exports = class EmojiNotifCommand extends Command {
     
     async run (message, {option}) {
         
-
         switch(option) {
             case '':
                 break;

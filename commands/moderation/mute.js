@@ -69,7 +69,7 @@ module.exports = class MuteCommand extends Command {
         message.client.muted[member.id] = setTimeout(() => {
             member.roles.remove(silenced).then(message.say(`Lockdown lifted. ${member} has been unmuted.`)).catch(console.error);
             
-            logger(message, `${member} (${member.displayName} - ID: ${member.id}) has been unmuted`);
+            logger(message.client, `${member} (${member.displayName} - ID: ${member.id}) has been unmuted`);
 
             delete message.client.muted[member.id];
         }, ms(time));

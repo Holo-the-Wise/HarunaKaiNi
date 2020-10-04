@@ -23,8 +23,9 @@ module.exports = class ShutdownCommand extends Command {
     async run (message, args) {
 
         message.channel.send("Shutting down, Goodbye :wave:");
-
         logger(message.client, `Shutdown activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`);
-        return messaged.client.destroy();
+        
+        setTimeout(() => { message.client.destroy(); }, 2000);
+        return;
     }
 };
