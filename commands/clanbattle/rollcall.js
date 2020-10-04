@@ -15,10 +15,10 @@ module.exports = class RollcallCommand extends Command {
             group: 'clanbattle', 
             description: 'Starts a rollcall for CB', 
             aliases: [ 'cw', 'cws', 'cb', 'cbs', 'cbrollcall', 'cwrollcall' ],
+            guarded: true,
             guildOnly: true
         })
     }
-
 
     hasPermission(message) {
         let PermissionLevel = 2;

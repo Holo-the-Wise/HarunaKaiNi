@@ -12,6 +12,7 @@ module.exports = class QuoteCommand extends Command {
             group: 'misc',
             description: 'Randomly choose from a bunch of quotes. Specify a user to get just quotes from them.',
             aliases: ['quotes'],
+            format: '[user] - optional',
             examples: ['quote', 'quotes', 'quote @holo'],
             args: [
                 {
@@ -24,7 +25,6 @@ module.exports = class QuoteCommand extends Command {
             guildOnly: true,
         });
     }
-
 
     async run (message, {member}){
 

@@ -12,6 +12,7 @@ module.exports = class QuoteCountCommand extends Command {
             group: 'misc',
             description: 'Returns how many quotes the specified member has',
             aliases: ['quotescount'],
+            format: '[user] - optional',
             examples: ['quotecount holo', 'quotescount @holo'],
             args: [
                 {

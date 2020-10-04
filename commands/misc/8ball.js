@@ -15,8 +15,7 @@ module.exports = class EightballCommand extends Command {
                 key: 'question',
                 prompt: 'Please ask a yes or no question',
                 type: 'string',
-            }],
-            guildOnly: false,
+            }]
         });
     }
 

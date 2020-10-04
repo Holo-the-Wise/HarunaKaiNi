@@ -52,12 +52,9 @@ module.exports = class StyleSheetCommand extends Command {
     //to check if correct permission level. check hasPermission() in bot.js to see levels
     /*
     hasPermission(message) 
-        if(message.channel.type == "text"){
         let PermissionLevel = 0;
         let msglevel = message.client.elevation(message);
         return msglevel >= PermissionLevel;
-        }
-        else {return true;}
     }
     */
 

@@ -10,8 +10,8 @@ module.exports = class EmojiCount extends Command {
             group: 'misc',
             description: 'Shows usage of emotes',
             aliases: [],
-            examples: [],
             format: '',
+            examples: [],
             args: [{
                 key: 'member',
                 prompt: 'Which user would you like to get the avatar of?',

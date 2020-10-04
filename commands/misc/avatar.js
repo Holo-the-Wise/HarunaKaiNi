@@ -9,9 +9,9 @@ module.exports = class AvatarCommand extends Command {
             memberName: 'avatar',
             group: 'misc',
             description: 'Shows the avatar of the specified user or yourself!',
-            aliases: ['profilepic','dp', 'pfp'],
+            aliases: ['profilepic','dp', 'pfp', 'profile'],
+            format: '[user] (can be a mention or plaintext)',
             examples: ['avatar', 'avatar holothewise', 'avatar @holothewise'],
-            format: 'avatar [user] (mention or plaintext)',
             args: [
                 {
                     key: 'member',
@@ -20,7 +20,8 @@ module.exports = class AvatarCommand extends Command {
                     default: ''
                 }
             ],
-            guildOnly: true,
+            argsPromptLimit: 2,
+            guildOnly: true
         })
     }
 

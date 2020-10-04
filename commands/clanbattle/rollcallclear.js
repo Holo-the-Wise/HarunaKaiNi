@@ -9,10 +9,10 @@ module.exports = class RollcallClearCommand extends Command {
             group: 'clanbattle',
             description: 'Clears a current rollcall',
             aliases: [ 'cwclear','cwsclear','cbclear','cbsclear'] ,
+            guarded: true,
             guildOnly: true
         })
     }
-
 
     hasPermission(message) {
         let PermissionLevel = 2;
