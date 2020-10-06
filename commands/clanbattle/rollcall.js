@@ -31,8 +31,8 @@ module.exports = class RollcallCommand extends Command {
         /* DONT TOUCH */
         let cwconfirmed = message.guild.roles.cache.find(u => u.name == "CB Confirmed");
         let cwmemes = message.guild.roles.cache.find(u => u.name == "Supreme Meme Stream Dream Team");
-        let fishrole = message.guild.roles.cache.find(u => u.name == "FISH");
-
+        let fishrole = message.guild.roles.cache.find(u => u.name == "CHIPS");
+        
         if (!cwconfirmed && !cwmemes) {
             return message.channel.send("Error no CB roles found");
         };

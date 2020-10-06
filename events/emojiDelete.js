@@ -8,8 +8,6 @@ module.exports = async (client, emoji) => {
     let clanChannel = emoji.guild.channels.cache.find(u => u.id == clanChannelID);
     let capChannel = emoji.guild.channels.cache.find(u => u.id == capChannelID);
 
-    // emoji.fetchAuthor().then((User) => {
-    //     let creator = User;
 
         const embed = new Discord.MessageEmbed()
             .setTimestamp(new Date())
@@ -29,5 +27,4 @@ module.exports = async (client, emoji) => {
         
         logger(client, `Emoji deleted\n` +
         `Emoji name: ${emoji.name} - URL: ${emoji.url}`);
-    // });
 };
