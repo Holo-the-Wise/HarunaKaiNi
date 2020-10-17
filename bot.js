@@ -9,6 +9,7 @@ const client = new Commando.Client({
 });
 const token = require("./config.json").token;
 const fs = require('fs');
+const changeAvatar = require("./util/changeAvatar");
 
 
 
@@ -19,8 +20,13 @@ client.emojiNotifsCaptains = true;
 client.rollcallActive = false;
 client.rollcallMsgId = 0;
 
+client.avatarCycling = true;
+
 client.muted = []; //muted users are here
 
+
+//avatar cycling
+client.setInterval(changeAvatar, 1000 * 3600 * 4, client);
 
 
 client.registry
