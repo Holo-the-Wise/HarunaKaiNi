@@ -114,14 +114,14 @@ module.exports = class RollcallCommand extends Command {
             setTimeout(function () {
                 let membersArray = cwconfirmed.members.array();
                 for (var i = 0; i < membersArray.length; i++) {
-                    membersArray[i].removeRole(cwconfirmed);
+                    membersArray[i].roles.remove(cwconfirmed);
                 }
 
                 let membersArray2 = cwmemes.members.array();
                 for (var i = 0; i < membersArray2.length; i++) {
-                    membersArray2[i].removeRole(cwmemes);
+                    membersArray2[i].roles.remove(cwmemes);
                 }
-                
+
                 message.client.rollcallMsgId  = 0;
                 message.client.rollcallActive = false;
                 msg.delete();
