@@ -10,6 +10,8 @@ const client = new Commando.Client({
 const token = require("./config.json").token;
 const fs = require('fs');
 const changeAvatar = require("./util/changeAvatar");
+const logger = require('./util/logging');
+
 
 
 
@@ -29,6 +31,9 @@ client.muted = []; //muted users are here
 
 //avatar cycling
 client.setInterval(changeAvatar, 1000 * 3600 * 4, client);
+
+//DM owners at startup
+client.setTimeout(logger, 1000*5, client, `Haruna is now online!`);
 
 
 client.registry
