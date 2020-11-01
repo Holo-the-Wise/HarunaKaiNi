@@ -109,9 +109,9 @@ module.exports = class RollcallCommand extends Command {
             message.client.rollcallMsgId = msg.id;
             message.client.rollcallActive = true;
             
-            logger(message.client, `Command Rollcall activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`)
+            logger(message.client, `Command Rollcall activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`);
             
-            setTimeout(function () {
+            message.client.cbtimer = setTimeout(function () {
                 let membersArray = cwconfirmed.members.array();
                 for (var i = 0; i < membersArray.length; i++) {
                     membersArray[i].roles.remove(cwconfirmed);
@@ -126,7 +126,7 @@ module.exports = class RollcallCommand extends Command {
                 message.client.rollcallActive = false;
                 msg.delete();
 
-                logger(message.client, `Rollcall cleared normally`)
+                logger(message.client, `Rollcall cleared normally`);
             }, rolecooldown);
         }).catch(console.error);
     }

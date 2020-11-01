@@ -22,6 +22,8 @@ client.rollcallMsgId = 0;
 
 client.avatarCycling = true;
 
+client.cbtimer;//timeout for CBRollcall
+
 client.muted = []; //muted users are here
 
 

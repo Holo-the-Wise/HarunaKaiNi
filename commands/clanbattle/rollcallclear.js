@@ -42,6 +42,8 @@ module.exports = class RollcallClearCommand extends Command {
         for (var i = 0; i < membersArray2.length; i++) {
             membersArray2[i].roles.remove(cwmemes);
         }
+
+        clearTimeout(message.client.cbtimer);
         
         logger(message.client, `Command RollcallClear activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`)
 
