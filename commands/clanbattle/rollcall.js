@@ -32,6 +32,7 @@ module.exports = class RollcallCommand extends Command {
         let cwconfirmed = message.guild.roles.cache.find(u => u.name == "CB Confirmed");
         let cwmemes = message.guild.roles.cache.find(u => u.name == "Supreme Meme Stream Dream Team");
         let fishrole = message.guild.roles.cache.find(u => u.name == "CHIPS");
+        let cbtimechannel = message.guild.channels.cache.find(u => u.name == "clan-battles-time");
         
         if (!cwconfirmed && !cwmemes) {
             return message.channel.send("Error no CB roles found");
@@ -102,7 +103,7 @@ module.exports = class RollcallCommand extends Command {
         // }
               
         /* DONT TOUCH */
-        message.channel.send(`Ahoy ${fishrole}, Haruna desu!  Please react ${hawoo} if you are available for Clan Battles tonight! If you just want to meme please react ${ramspin}. \n Please post in #clan-battles-time what times you are available tonight.\nGood luck and have fun! ${cheer}`, attachment).then(msg => {
+        message.channel.send(`Ahoy ${fishrole}, Haruna desu!  Please react ${hawoo} if you are available for Clan Battles tonight! If you just want to meme please react ${ramspin}. \n Please post in ${cbtimechannel} what times you are available tonight.\nGood luck and have fun! ${cheer}`, attachment).then(msg => {
             message.delete();
             msg.react(hawoo.id);
             msg.react(ramspin.id);
