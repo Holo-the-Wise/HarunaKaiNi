@@ -102,7 +102,7 @@ module.exports = class RollcallCommand extends Command {
         // }
               
         /* DONT TOUCH */
-        message.channel.send(`Ahoy ${fishrole}, Haruna desu!  Please react ${hawoo} if you are available for Clan Battles tonight! If you just want to meme please react ${ramspin}. \n Good luck and have fun! ${cheer}`, attachment).then(msg => {
+        message.channel.send(`Ahoy ${fishrole}, Haruna desu!  Please react ${hawoo} if you are available for Clan Battles tonight! If you just want to meme please react ${ramspin}. \n Please post in #clan-battles-time what times you are available tonight.\nGood luck and have fun! ${cheer}`, attachment).then(msg => {
             message.delete();
             msg.react(hawoo.id);
             msg.react(ramspin.id);
