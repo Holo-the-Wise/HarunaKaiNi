@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const rolecooldown = 1000 * 60 * 60 * 12;//cooldown, after this time the roles are reset: 1000 * secs * mins* hours
+const rolecooldown = 1000 * 60 * 60 * 16;//cooldown, after this time the roles are reset: 1000 * secs * mins* hours
 const logger = require('../../util/logging');
 const Canvas = require('canvas');
 const drawMultilineText = require('canvas-multiline-text');
