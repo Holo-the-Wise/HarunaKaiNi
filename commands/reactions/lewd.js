@@ -14,7 +14,7 @@ module.exports = class LewdCommand extends Command {
         });
     }
 
-    async run (message, args) {
+    async run (message) {
 
         logger(message.client, `Lewd activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`);
 

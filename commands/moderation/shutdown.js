@@ -20,7 +20,7 @@ module.exports = class ShutdownCommand extends Command {
         return msglevel >= PermissionLevel;
     }
 
-    async run (message, args) {
+    async run (message) {
 
         message.channel.send("Shutting down, Goodbye :wave:");
         logger(message.client, `Shutdown activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`);

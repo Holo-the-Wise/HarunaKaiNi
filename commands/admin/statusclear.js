@@ -14,7 +14,7 @@ module.exports = class StatusClearCommand extends Command {
         })
     }
 
-    async run (message, args) {
+    async run (message) {
 
         message.client.user.setPresence({ 
             activity: {

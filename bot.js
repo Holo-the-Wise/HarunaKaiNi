@@ -16,21 +16,27 @@ const logger = require('./util/logging');
 
 
 /* Trackers - used to track various bot states etc */
+
+//emoji notifications, default is on for both channels
 client.emojiNotifsGeneral = true;
 client.emojiNotifsCaptains = true;
 
+//Rollcall: rollcallActive, kinda unnecessary but w/e
 client.rollcallActive = false;
 client.rollcallMsgId = 0;
 
-client.avatarCycling = true;
+//timeout for CBRollcall - 1000 * secs * mins* hours
+client.cbtimer = 1000 * 60 * 60 * 16;
 
-client.cbtimer;//timeout for CBRollcall
+//avatar cycling and frequency
+client.avatarCycling = true;
+client.avatarTimer = 1000 * 3600 * 4;
+
+//activate avatar cycling
+client.setInterval(changeAvatar, client.avatarTimer, client);
+
 
 client.muted = []; //muted users are here
-
-
-//avatar cycling
-client.setInterval(changeAvatar, 1000 * 3600 * 4, client);
 
 //DM owners at startup
 client.setTimeout(logger, 1000*5, client, `Haruna is now online!`);

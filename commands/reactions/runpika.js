@@ -15,7 +15,7 @@ module.exports = class RunpikaCommand extends Command {
         });
     }
 
-    async run (message, args) {
+    async run (message) {
 
         logger(message.client, `Runpika activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`);
         

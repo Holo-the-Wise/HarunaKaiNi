@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const rolecooldown = 1000 * 60 * 60 * 16;//cooldown, after this time the roles are reset: 1000 * secs * mins* hours
+// const rolecooldown = 1000 * 60 * 60 * 16;//cooldown, after this time the roles are reset: 1000 * secs * mins* hours
 const logger = require('../../util/logging');
 const Canvas = require('canvas');
 const drawMultilineText = require('canvas-multiline-text');
@@ -26,7 +26,7 @@ module.exports = class RollcallCommand extends Command {
         return msglevel >= PermissionLevel;
     }
 
-    async run (message, args) {
+    async run (message) {
 
         /* DONT TOUCH */
         let cwconfirmed = message.guild.roles.cache.find(u => u.name == "CB Confirmed");
@@ -128,7 +128,7 @@ module.exports = class RollcallCommand extends Command {
                 msg.delete();
 
                 logger(message.client, `Rollcall cleared normally`);
-            }, rolecooldown);
+            }, client.cbtimer);
         }).catch(console.error);
     }
 };

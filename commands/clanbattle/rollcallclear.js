@@ -20,7 +20,7 @@ module.exports = class RollcallClearCommand extends Command {
         return msglevel >= PermissionLevel;
     }
 
-    async run (message, args) {
+    async run (message) {
 
         let cwconfirmed = message.guild.roles.cache.find(u => u.name == "CB Confirmed");
         let cwmemes = message.guild.roles.cache.find(u => u.name == "Supreme Meme Stream Dream Team");
