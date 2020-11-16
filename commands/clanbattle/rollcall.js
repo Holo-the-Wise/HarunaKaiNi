@@ -36,7 +36,7 @@ module.exports = class RollcallCommand extends Command {
         if (!cwconfirmed && !cwmemes) {
             return message.channel.send("Error no CB roles found");
         };
-    Y
+    
         if (message.client.rollcallActive) {
             return message.channel.send("A CW rolecall is already active for tonight.");
         }
