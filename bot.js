@@ -12,9 +12,6 @@ const fs = require('fs');
 const changeAvatar = require("./util/changeAvatar");
 const logger = require('./util/logging');
 
-
-
-
 /* Trackers - used to track various bot states etc */
 
 //emoji notifications, default is on for both channels
@@ -35,8 +32,8 @@ client.avatarTimer = 1000 * 3600 * 4;
 //activate avatar cycling
 client.setInterval(changeAvatar, client.avatarTimer, client);
 
-
-client.muted = []; //muted users are here
+//muted users are here
+client.muted = []; 
 
 //DM owners at startup
 client.setTimeout(logger, 1000*5, client, `Haruna is now online!`);
@@ -93,7 +90,7 @@ function readEvents() {
                 client.on(eventName, event.bind(null, client));
                 delete require.cache[require.resolve(`./events/${file}`)];
             } catch (err) {
-                console.log(`Could not load event: ${file}\n   ${err}`);
+                console.log(`Could not load event: ${file}\n${err}`);
             }
         });
         console.log(`${eventNumber} events loaded!`);

@@ -50,7 +50,7 @@ module.exports = class TimeCommand extends Command {
             `\n\n${timeINDIA} in India\n` +
             `${timeBANG} in Bangladesh\n` +
             `${timeINDO} in Indonesia (West)/Vietnam/Thailand\n` +
-            `${timeSG} in Singapore/HK/Philippines/Indonesia (Central)\n` +
+            `${timeSG} in Singapore/HK/Philippines/Indonesia (Central)/Perth\n` +
             `${timeJP} in Japan\n` +
             `${timeSA} in South Australia\n` +
             `${timeMELB} in Melbourne\n` +
