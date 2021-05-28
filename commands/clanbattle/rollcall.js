@@ -5,7 +5,7 @@ const Canvas = require('canvas');
 const drawMultilineText = require('canvas-multiline-text');
 const Discord = require("discord.js");
 const moment = require('moment-timezone');
-const phrases = require('../../assets/cbphrases.json');
+//const phrases = require('../../assets/cbphrases.json');
 
 module.exports = class RollcallCommand extends Command {
     constructor (client) {
@@ -27,13 +27,12 @@ module.exports = class RollcallCommand extends Command {
     }
 
     async run (message) {
-
-        /* DONT TOUCH */
-        let cwconfirmed = message.guild.roles.cache.find(u => u.name == "CB Confirmed");
-        let cwmemes = message.guild.roles.cache.find(u => u.name == "Supreme Meme Stream Dream Team");
-        let fishrole = message.guild.roles.cache.find(u => u.name == "FISH");
         
-        if (!cwconfirmed && !cwmemes) {
+        /* DONT TOUCH */ 
+        let cwconfirmed = message.guild.roles.cache.find(u => u.name == "CB Confirmed");
+        let fishrole = message.guild.roles.cache.find(u => u.name == "Clan Battles");
+        
+        if (!cwconfirmed) {
             return message.channel.send("Error no CB roles found");
         };
     
@@ -42,10 +41,58 @@ module.exports = class RollcallCommand extends Command {
         }
         const hawoo = message.guild.emojis.cache.find(emoji => emoji.name === "hawoo");
         const cheer = message.guild.emojis.cache.find(emoji => emoji.name === "a_nekocheer");
-        const ramspin = message.guild.emojis.cache.find(emoji => emoji.name === "a_RamSpin");
 
         //canvas start
+        /*
 
+        // for( let i = 0 ; i < phrases.length ; i++){
+        const canvas = Canvas.createCanvas(600, 200);
+        const ctx = canvas.getContext('2d');
+        
+        // Since the image takes time to load, you should await it
+        const background = await Canvas.loadImage('./assets/CleveCBBG2.png');
+        const gif = await Canvas.loadImage('./assets/CleveCBBG1.gif');
+
+        // This uses the canvas dimensions to stretch the image onto the entire canvas
+        ctx.drawImage(gif, 0, 0, canvas.width, canvas.height);
+
+        const attachment = new Discord.MessageAttachment(canvas.toBuffer());
+        */
+        
+        let attachment = new Discord.MessageAttachment('./assets/CleveRollcall.png');
+        /* DONT TOUCH  */
+        // channel.send({
+        //     files: [{
+        //       attachment: 'entire/path/to/file.jpg',
+        //       name: 'file.jpg'
+        //     }]
+        //   })
+
+        message.channel.send(`Ahoy ${fishrole} team, Cleveland here!!  Please react ${hawoo} if you are available for Clan Battles tonight!\nGood luck and have fun! ${cheer}`, attachment).then(msg => {
+            message.delete();
+            msg.react(hawoo.id);
+            message.client.rollcallMsgId = msg.id;
+            message.client.rollcallActive = true;
+            
+            logger(message.client, `Command Rollcall activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`);
+            
+            message.client.cbtimer = setTimeout(function () {
+                let membersArray = cwconfirmed.members.array();
+                for (var i = 0; i < membersArray.length; i++) {
+                    membersArray[i].roles.remove(cwconfirmed);
+                }
+
+                message.client.rollcallMsgId  = 0;
+                message.client.rollcallActive = false;
+                msg.delete();
+
+                logger(message.client, `Rollcall cleared normally`);
+            }, message.client.cbtimer);
+        }).catch(console.error); 
+    // )
+        
+
+/* Haruna part
         let day = moment().format('DD');
         let month = moment().format('MMM').toUpperCase();
 
@@ -94,40 +141,6 @@ module.exports = class RollcallCommand extends Command {
                 maxFontSize: 30
             }
         );
-        
-        const attachment = new Discord.MessageAttachment(canvas.toBuffer());
- 
-        // for testing
-        // message.channel.send('test rollcall', attachment);
-        // }
-              
-        /* DONT TOUCH */
-        message.channel.send(`Ahoy ${fishrole}, Haruna desu!  Please react ${hawoo} if you are available for Clan Battles tonight! If you just want to meme please react ${ramspin}.\nGood luck and have fun! ${cheer}`, attachment).then(msg => {
-            message.delete();
-            msg.react(hawoo.id);
-            msg.react(ramspin.id);
-            message.client.rollcallMsgId = msg.id;
-            message.client.rollcallActive = true;
-            
-            logger(message.client, `Command Rollcall activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`);
-            
-            message.client.cbtimer = setTimeout(function () {
-                let membersArray = cwconfirmed.members.array();
-                for (var i = 0; i < membersArray.length; i++) {
-                    membersArray[i].roles.remove(cwconfirmed);
-                }
+        */
 
-                let membersArray2 = cwmemes.members.array();
-                for (var i = 0; i < membersArray2.length; i++) {
-                    membersArray2[i].roles.remove(cwmemes);
-                }
-
-                message.client.rollcallMsgId  = 0;
-                message.client.rollcallActive = false;
-                msg.delete();
-
-                logger(message.client, `Rollcall cleared normally`);
-            }, client.cbtimer);
-        }).catch(console.error);
-    }
-};
+}};

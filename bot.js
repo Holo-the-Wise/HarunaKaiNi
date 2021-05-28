@@ -36,7 +36,7 @@ client.setInterval(changeAvatar, client.avatarTimer, client);
 client.muted = []; 
 
 //DM owners at startup
-client.setTimeout(logger, 1000*5, client, `Haruna is now online!`);
+client.setTimeout(logger, 1000*5, client, `Cleveland is now online!`);
 
 
 client.registry

@@ -1,3 +1,3 @@
 module.exports = async (client) => {
-    console.log(`Haruna is online!`)
+    console.log(`Cleveland is online!`)
 };
