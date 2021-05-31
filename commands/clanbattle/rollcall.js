@@ -76,7 +76,9 @@ module.exports = class RollcallCommand extends Command {
             
             logger(message.client, `Command Rollcall activated by ${message.author} (${message.author.tag} - ID: ${message.author.id})`);
             
-            message.client.cbtimer = setTimeout(function () {
+            
+            setTimeout(function () {
+
                 let membersArray = cwconfirmed.members.array();
                 for (var i = 0; i < membersArray.length; i++) {
                     membersArray[i].roles.remove(cwconfirmed);
