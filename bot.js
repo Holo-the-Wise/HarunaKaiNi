@@ -60,7 +60,7 @@ client.elevation = message => {
        is then sent to the command handler for verification*/
     let permlvl = 0;
     
-    let member_role = message.guild.roles.cache.find(x => x.name === "Line Officers");
+    let member_role = message.guild.roles.cache.find(x => x.name === "Members");
     if (member_role && message.member.roles.cache.has(member_role.id)) permlvl = 1;
     
     let captain_role = message.guild.roles.cache.find(x => x.name === "Captains");
