@@ -4,16 +4,16 @@
   "description": "Haruna Bot for FISHnCHIPS Discord",
   "main": "bot.js",
   "dependencies": {
-    "canvas": "^2.6.1",
+    "canvas": "^2.8.0",
     "canvas-multiline-text": "^1.0.3",
-    "discord.js": "^12.3.1",
+    "discord.js": "^12.5.3",
     "discord.js-commando": "git+https://github.com/discordjs/Commando.git",
-    "farmhash": "^3.1.0",
-    "moment": "^2.29.0",
-    "moment-timezone": "^0.5.31",
+    "farmhash": "^3.2.1",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "node-fetch": "^2.6.1",
-    "node-superfetch": "^0.1.10",
-    "select-random-file": "^1.1.0"
+    "node-superfetch": "^0.1.11",
+    "select-random-file": "^1.2.0"
   },
   "devDependencies": {},
   "scripts": {
