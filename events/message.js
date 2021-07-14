@@ -4,14 +4,11 @@ module.exports = async (client, message) => {
         return;
     }
     if (message.content.includes("https://twitter.com")) {
-        message.delete()
-            .then(() => console.log('suppressed'))
-            .catch(console.error);
         const fetch = require("node-fetch");
 
         var tweetLinkRegex = new RegExp(/https:\/\/twitter.com\/\w*\/status\/\d*/);
         var tweetLink = message.content.match(tweetLinkRegex)[0];
-        console.log(tweetLink)  
+        console.log(tweetLink)
         tweetId = tweetLink.split('/').reverse()[0]
         console.log(tweetId);
 
@@ -25,20 +22,50 @@ module.exports = async (client, message) => {
             },
         };
 
-
+        // Gets Tweet Info, Checks if it is a Video/GIF
         fetch(tweetUrl, obj)
             .then((resp) => resp.json())
             .then(function (data) {
                 console.log(data.includes.media[0].type);
                 var mediaType = data.includes.media[0].type;
                 if (mediaType == 'video' || mediaType == 'animated_gif') {
-                    message.say(tweetLink.slice(0, 8) + 'fx' + tweetLink.slice(8));
-                    message.suppressEmbeds(true);
+
+                    var messageContent = message.content;
+                    var fxTweetLink = tweetLink.slice(0, 8) + 'fx' + tweetLink.slice(8);
+                    const guild = message.guild
+                    const channelId = message.channel.id;
+                    const member = message.member;
+                    const avatar = member.user.displayAvatarURL({ format: 'jpg', dynamic: true })
+                    const name = member.displayName;
+                    console.log('stuff',name,avatar)
+
+                    guild.fetchWebhooks()
+                        .then(function(webhooks) {
+                            var fxTwitter = webhooks.find(webhook => webhook.name == 'fxtwitter');
+                            return fxTwitter;
+                        })
+                        .then(fxTwitter => fxTwitter.edit({channel:channelId}))
+                        .then(fxTwitter => fxTwitter.send(messageContent.replace(tweetLink,fxTweetLink),{username:name,avatarURL:avatar}))
+                        .catch((error) => console.log(error));
+                        
+                    
+
+
+                    // message.say(messageContent.replace(tweetLink,fxTweetLink)) // delete after
+                    message.delete()
+                        .then(() => console.log('Deleted'))
+                        .catch((error) => console.log(error));
                 };
             })
             .catch(function (error) {
                 console.log(error)
             });
+
+
+        // Gets message information in prep for webhook
+
+        // Creats a new webhook and posts message with fixed url then deletes original msg
+
 
     }
     if (!message.content.startsWith(client.commandPrefix)) {
