@@ -8,9 +8,7 @@ module.exports = async (client, message) => {
 
         var tweetLinkRegex = new RegExp(/https:\/\/twitter.com\/\w*\/status\/\d*/);
         var tweetLink = message.content.match(tweetLinkRegex)[0];
-        console.log(tweetLink)
         tweetId = tweetLink.split('/').reverse()[0]
-        console.log(tweetId);
 
         const tweetUrl = `https://api.twitter.com/2/tweets/${tweetId}?expansions=attachments.media_keys&media.fields=type`
 
@@ -26,7 +24,7 @@ module.exports = async (client, message) => {
         fetch(tweetUrl, obj)
             .then((resp) => resp.json())
             .then(function (data) {
-                console.log(data.includes.media[0].type);
+                // console.log(data.includes.media[0].type);
                 var mediaType = data.includes.media[0].type;
                 if (mediaType == 'video' || mediaType == 'animated_gif') {
 
@@ -37,7 +35,7 @@ module.exports = async (client, message) => {
                     const member = message.member;
                     const avatar = member.user.displayAvatarURL({ format: 'jpg', dynamic: true })
                     const name = member.displayName;
-                    console.log('stuff',name,avatar)
+                    // console.log('stuff',name,avatar)
 
                     guild.fetchWebhooks()
                         .then(function(webhooks) {
@@ -53,7 +51,7 @@ module.exports = async (client, message) => {
 
                     // message.say(messageContent.replace(tweetLink,fxTweetLink)) // delete after
                     message.delete()
-                        .then(() => console.log('Deleted'))
+                        .then()
                         .catch((error) => console.log(error));
                 };
             })
