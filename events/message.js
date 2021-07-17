@@ -1,3 +1,4 @@
+const token = require("../config.json").token;
 module.exports = async (client, message) => {
 
     if (message.author.bot) {
@@ -22,7 +23,7 @@ module.exports = async (client, message) => {
         const obj2 = {
             method: 'PATCH',
             headers: {
-                'Authorization': 'Bot NTM2ODQ2OTEzMzk2NDA4MzMw.XEWXpg.AuMEhzEZxxrzZOL1DTU6CajilbA',
+                'Authorization': `Bot ${token}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -49,6 +50,8 @@ module.exports = async (client, message) => {
                     // message.suppressEmbeds()
                     //     .catch(err => console.log(err))
                     // console.log(`https://discord.com/api/v8/channels/${message.channel.id}/messages/${message.id}`)
+                    
+                    
                     fetch(`https://discord.com/api/channels/${message.channel.id}/messages/${message.id}`, obj2)
                         .catch(err => console.log(err));
                     guild.fetchWebhooks()
