@@ -60,7 +60,7 @@ module.exports = async (client, message) => {
                             return fxTwitter;
                         })
                         .then(fxTwitter => fxTwitter.edit({ channel: channelId }))
-                        .then(fxTwitter => fxTwitter.send(messageContent.replace(tweetLink, fxTweetLink), { username: name, avatarURL: avatar }))
+                        .then(fxTwitter => fxTwitter.send(fxTweetLink, { username: name, avatarURL: avatar }))
                         // .then(message.delete())
                         // .then(message.edit({flags: ['SUPPRESS_EMBEDS']}))
                         // .then(resp => console.log(resp))
