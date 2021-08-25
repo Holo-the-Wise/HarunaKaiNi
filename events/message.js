@@ -1,4 +1,5 @@
 const token = require("../config.json").token;
+const twitterToken = require("../config.json").twitterToken;
 module.exports = async (client, message) => {
 
     if (message.author.bot) {
@@ -6,6 +7,10 @@ module.exports = async (client, message) => {
     }
     if (message.content.includes("https://twitter.com")) {
         const fetch = require("node-fetch");
+        //Message Check (For spoiler)
+        const msgSpoiledRegex = new RegExp(/\|\|.*\|\|/gi) ;
+        var msgSpoiled = message.content.match(msgSpoiledRegex);
+        //Extracting tweet link from message
         const tweetLinkRegex = new RegExp(/https:\/\/twitter.com\/\w*\/status\/\d*/);
         const tweetLink = message.content.match(tweetLinkRegex)[0];
         tweetId = tweetLink.split('/').reverse()[0]
@@ -15,7 +20,7 @@ module.exports = async (client, message) => {
         const obj = {
             method: 'GET',
             headers: {
-                'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAABCIRgEAAAAAt8VpNcbLbZgPyhkL3Tvlo%2FOsrCg%3DrR4bOGRHuu2ymmAnYQK0XLSlvN0ShzYPySZla8FbliMg3qW7M5',
+                'Authorization': `${twitterToken}`,
                 'Content-Type': 'application/json',
             },
         };
@@ -60,7 +65,12 @@ module.exports = async (client, message) => {
                             return fxTwitter;
                         })
                         .then(fxTwitter => fxTwitter.edit({ channel: channelId }))
-                        .then(fxTwitter => fxTwitter.send(fxTweetLink, { username: name, avatarURL: avatar }))
+                        .then(fxTwitter => {
+                            if (msgSpoiled){
+                                fxTwitter.send('||'+fxTweetLink+'||', { username: name, avatarURL: avatar })
+                            }
+                            else {fxTwitter.send(fxTweetLink, { username: name, avatarURL: avatar })}
+                        })
                         // .then(message.delete())
                         // .then(message.edit({flags: ['SUPPRESS_EMBEDS']}))
                         // .then(resp => console.log(resp))
