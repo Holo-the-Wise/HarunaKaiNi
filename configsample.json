@@ -4,5 +4,6 @@
     "silencedrole": "Silenced",
     "generalChannel": "GENERAL CHANNEL ID",
     "clanChannel": "CLAN CHANNEL ID",
-    "capChannel": "LOG/CAPTAIN CHANNEL ID"
+    "capChannel": "LOG/CAPTAIN CHANNEL ID", 
+    "twitterToken": "twitter API token"
 }
