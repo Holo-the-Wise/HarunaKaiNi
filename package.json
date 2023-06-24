@@ -8,7 +8,7 @@
     "canvas-multiline-text": "^1.0.3",
     "discord.js": "^12.5.3",
     "discord.js-commando": "git+https://github.com/discordjs/Commando.git",
-    "farmhash": "^3.2.1",
+    "farmhash": "^3.3.0",
     "moment": "^2.29.2",
     "moment-timezone": "^0.5.33",
     "node-fetch": "^2.6.7",
